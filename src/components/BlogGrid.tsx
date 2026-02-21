@@ -4,28 +4,29 @@ import { StoryblokComponent } from "@storyblok/react";
 interface BlogGridProps {
     blok: {
         headline: string;
-        blog_posts: any[];
+        blog_posts: Array<Record<string, unknown> & { _uid: string }>;
         _uid: string;
     };
 }
 
 export default function BlogGrid({ blok }: BlogGridProps) {
     return (
-        <section {...storyblokEditable(blok)} className="py-20">
-            <div className="container mx-auto px-6">
-                <h2 className="text-5xl font-bold mb-12" style={{ color: '#86B049' }}>{blok.headline}</h2>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {blok.blog_posts.map((nestedBlok: any) => (
-                        <StoryblokComponent blok={nestedBlok} key={nestedBlok._uid} />
+        <section {...storyblokEditable(blok)} className="py-14 md:py-16">
+            <div className="section-shell px-4 md:px-6">
+                <h2 className="font-heading text-[54px] leading-none text-green">{blok.headline}</h2>
+                <div className="mt-7 grid grid-cols-1 gap-4 md:grid-cols-[1.2fr_1fr] md:grid-rows-2">
+                    {blok.blog_posts.map((nestedBlok, index) => (
+                        <div
+                            key={nestedBlok._uid}
+                            className={
+                                index === 0
+                                    ? "md:row-span-2 md:min-h-[434px]"
+                                    : "md:min-h-[209px]"
+                            }
+                        >
+                            <StoryblokComponent blok={nestedBlok} />
+                        </div>
                     ))}
-                </div>
-
-                {/* Dotted path decoration */}
-                <div className="relative mt-12">
-                    <div className="absolute left-1/2 transform -translate-x-1/2">
-                        <div className="w-1 h-20 border-l-2 border-dashed border-gray-600"></div>
-                    </div>
                 </div>
             </div>
         </section>

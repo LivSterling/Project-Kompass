@@ -16,27 +16,24 @@ interface CtaSectionProps {
 
 export default function CtaSection({ blok }: CtaSectionProps) {
     return (
-        <section {...storyblokEditable(blok)} className="relative h-96">
-        {/* Background Image */}
+        <section {...storyblokEditable(blok)} className="relative h-[340px] md:h-[410px]">
         <div className="absolute inset-0">
           <img 
             src={blok.background_image.filename}
             alt={blok.image_alt}
-            className="w-full h-full object-cover"
+            className="h-full w-full object-cover"
           />
-          {/* Dark overlay */}
-          <div className="absolute inset-0 bg-black/50"></div>
+          <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(35,42,67,0.68),rgba(35,42,67,0.45))]"></div>
         </div>
         
-        {/* Content */}
         <div className="relative z-10 h-full flex items-center justify-center">
           <div className="text-center text-white px-4">
-            <h2 className="text-5xl md:text-6xl font-bold mb-8">
+            <h2 className="font-heading text-5xl leading-none md:text-7xl">
               {blok.headline}
             </h2>
             <a 
               href={blok.button_link}
-              className="inline-block bg-orange hover:bg-orange-dark text-white px-10 py-4 rounded-md text-xl font-semibold transition-colors"
+              className="font-heading mt-7 inline-block bg-orange px-7 py-2.5 text-sm font-bold uppercase tracking-wide text-black transition-colors hover:bg-orange-light"
             >
               {blok.button_text}
             </a>

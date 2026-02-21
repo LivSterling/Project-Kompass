@@ -21,20 +21,14 @@ export default function Navigation() {
     scrolled ? "nav-scrolled " : "bg-transparent"
         }`}
       >
-            <nav className="container mx-auto px-6 py-4 flex items-center justify-between">
-                {/* Logo */}
-                <Link href="/" className="fex items-center gap-2 text-white">
-                    <div className="w-8 h-8 bg-blue rounded-full flex items-center justify-center">
-                       {/* Compass icon - we'll use a simple + for now */}
-                       <span className="text-white text-xl font-bold">+</span>
-                    </div>
-                    <span className="text-xl font-semibold">Project Kompass</span>
+            <nav className="section-shell flex items-center justify-between px-4 py-3 md:px-6 md:py-3.5">
+                <Link href="/" className="flex items-center gap-2 text-white">
+                    <img src="/img/logo.png" alt="Project Kompass Logo" className="" />
                 </Link>
 
-                {/* Navigation Links */}
-        <ul className="hidden md:flex items-center gap-8 text-white">
+        <ul className="hidden items-center gap-7 text-sm font-medium text-white xl:flex">
           <li>
-            <Link href="/" className="hover:text-blue-300 transition">
+            <Link href="/" className="transition hover:text-blue-300">
               Home
             </Link>
           </li>
@@ -68,7 +62,7 @@ export default function Navigation() {
         {/* Donate Button */}
         <Link
           href="/donate"
-          className="bg-orange hover:bg-orange-dark text-white px-6 py-2  font-semibold transition"
+          className= "font-heading bg-orange px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-wide text-black transition hover:bg-orange-light md:px-4 md:py-2 md:text-[11px]"
         >
           Donate Now
         </Link>

@@ -3,6 +3,7 @@
 @theme {
     --color-navy: #345789;
     --color-navy-dark: #252B42;
+    --color-navy-deep: #202543;
     --color-blue: #4C7FC8;
     --color-orange: #FC8F4C;
     --color-orange-light: #ff8c61;
@@ -10,7 +11,10 @@
     --color-tan: #d4b896;
     --color-tan-light: #e5d4bc;
     --color-tan-dark: #c4a886;
-    --color-green: #81A969
+    --color-slate-card: #2a304f;
+    --color-green: #81A969;
+    --font-heading: var(--font-heading);
+    --font-body: var(--font-body);
 }
 
 body::before {
@@ -26,6 +30,8 @@ body::before {
 
 body {
     background-color: #252B42;
+    font-family: var(--font-body), Arial, Helvetica, sans-serif;
+    color: #ffffff;
 }
 
 .nav-scrolled {
@@ -33,4 +39,24 @@ body {
     background-image: url('/img/bg.png');
     background-size: cover;
     background-repeat: no-repeat;
-  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.font-heading {
+    font-family: var(--font-heading), "Arial Black", sans-serif;
+    letter-spacing: 0.01em;
+}
+
+.font-body {
+    font-family: var(--font-body), Arial, Helvetica, sans-serif;
+}
+
+.section-shell {
+    width: min(1200px, calc(100% - 2rem));
+    margin-inline: auto;
+}

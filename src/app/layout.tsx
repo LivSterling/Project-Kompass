@@ -1,19 +1,27 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Black_Han_Sans, Roboto } from "next/font/google";
 import "./globals.css";
 import "@/lib/storyblok";
 import StoryblokProvider from "@/components/StoryblokProvider";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const blackHanSans = Black_Han_Sans({
+  weight: "400",
   subsets: ["latin"],
+  variable: "--font-heading",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const roboto = Roboto({
+  weight: ["400", "500", "700"],
   subsets: ["latin"],
+  variable: "--font-body",
+});
+
+const fallbackMono = Roboto({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-geist-mono",
 });
 
 export const metadata: Metadata = {
@@ -32,7 +40,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${blackHanSans.variable} ${roboto.variable} ${fallbackMono.variable} antialiased`}
       >
         <Navigation />
         <StoryblokProvider>
