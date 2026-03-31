@@ -2,17 +2,18 @@
 
 @theme {
     --color-navy: #345789;
-    --color-navy-dark: #252B42;
+    --color-navy-dark: #252b42;
     --color-navy-deep: #202543;
-    --color-blue: #4C7FC8;
-    --color-orange: #FC8F4C;
+    --color-blue: #4c7fc8;
+    --color-orange: #fc8f4c;
     --color-orange-light: #ff8c61;
     --color-orange-dark: #e55a2b;
     --color-tan: #d4b896;
     --color-tan-light: #e5d4bc;
     --color-tan-dark: #c4a886;
     --color-slate-card: #2a304f;
-    --color-green: #81A969;
+    /* Figma secondary-color-1 */
+    --color-green: #82a969;
     --font-heading: var(--font-heading);
     --font-body: var(--font-body);
 }

@@ -1,44 +1,45 @@
 import { storyblokEditable } from "@storyblok/react/rsc";
 
 interface CtaSectionProps {
-    blok: {
-        headline: string;
-        button_text: string;
-        button_link: string;
-        background_color: 'navy' | 'tan' | 'white';
-        background_image: {
-            filename: string;
-          };
-          image_alt: string;
-        _uid: string;
+  blok: {
+    headline: string;
+    button_text: string;
+    button_link: string;
+    background_color: "navy" | "tan" | "white";
+    background_image: {
+      filename: string;
     };
+    image_alt: string;
+    _uid: string;
+  };
 }
 
 export default function CtaSection({ blok }: CtaSectionProps) {
-    return (
-        <section {...storyblokEditable(blok)} className="relative h-[340px] md:h-[410px]">
-        <div className="absolute inset-0">
-          <img 
-            src={blok.background_image.filename}
-            alt={blok.image_alt}
-            className="h-full w-full object-cover"
-          />
-          <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(35,42,67,0.68),rgba(35,42,67,0.45))]"></div>
+  return (
+    <section {...storyblokEditable(blok)} className="relative min-h-[420px] overflow-hidden md:min-h-[560px] lg:min-h-[min(85vh,737px)]">
+      <div className="absolute inset-0">
+        <img src={blok.background_image.filename} alt={blok.image_alt} className="h-full w-full object-cover object-center" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "linear-gradient(180deg, rgba(35,42,67,0.5) 0%, rgba(35,42,67,0.72) 100%)",
+          }}
+        />
+      </div>
+
+      <div className="relative z-10 flex min-h-[420px] items-center justify-center px-4 py-20 text-center text-white md:min-h-[560px] lg:min-h-[min(85vh,737px)]">
+        <div>
+          <h2 className="font-heading text-[clamp(2.5rem,6vw,5.4rem)] uppercase leading-none tracking-wide">
+            {blok.headline}
+          </h2>
+          <a
+            href={blok.button_link}
+            className="font-heading mt-10 inline-flex min-h-[68px] min-w-[280px] items-center justify-center bg-orange px-8 text-[clamp(1.5rem,3vw,2.25rem)] leading-tight tracking-wide text-black transition-colors hover:bg-orange-light md:px-10"
+          >
+            {blok.button_text}
+          </a>
         </div>
-        
-        <div className="relative z-10 h-full flex items-center justify-center">
-          <div className="text-center text-white px-4">
-            <h2 className="font-heading text-5xl leading-none md:text-7xl">
-              {blok.headline}
-            </h2>
-            <a 
-              href={blok.button_link}
-              className="font-heading mt-7 inline-block bg-orange px-7 py-2.5 text-sm font-bold uppercase tracking-wide text-black transition-colors hover:bg-orange-light"
-            >
-              {blok.button_text}
-            </a>
-          </div>
-        </div>
-      </section>
-    );
-  }
+      </div>
+    </section>
+  );
+}

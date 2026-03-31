@@ -1,5 +1,5 @@
 import { storyblokEditable } from "@storyblok/react/rsc";
-import AnimatedDottedPath from "@/components/AnimatedDottedPath";
+import { FIGMA_DOTTED_LINE, FIGMA_MAP_X } from "@/lib/figmaAssets";
 
 interface HeroProps {
   blok: {
@@ -16,35 +16,36 @@ interface HeroProps {
 }
 
 export default function Hero({ blok }: HeroProps) {
-  const lines =
-    blok.headline
-      ?.split(".")
-      .map((line) => line.trim())
-      .filter(Boolean) ?? [];
+  const headlineDisplay = blok.headline?.replace(/\.\s+/g, ".\n").trim() ?? "";
 
   return (
-    <section {...storyblokEditable(blok)} className="relative min-h-[640px] overflow-hidden pt-40 md:min-h-[740px]">
+    <section {...storyblokEditable(blok)} className="relative min-h-[min(100vh,1024px)] overflow-hidden pt-28 md:pt-32">
       <div className="absolute inset-0">
         <img src={blok.background_image.filename} alt={blok.image_alt} className="h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(34,40,64,0.88)_0%,rgba(34,40,64,0.76)_32%,rgba(34,40,64,0.25)_60%,rgba(34,40,64,0.5)_100%)]"></div>
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 95% 115% at 78% 45%, rgba(37,43,66,0.12) 0%, rgba(37,43,66,0.55) 45%, rgba(37,43,66,0.82) 100%)",
+          }}
+        />
       </div>
 
-      <div className="relative z-10 flex h-full items-center">
+      <div className="relative z-10 flex min-h-[min(100vh,1024px)] items-center pb-24">
         <div className="section-shell w-full px-4 md:px-6">
-          <div className="max-w-xl">
-            <img src="/img/logo compass.png" alt="Project Kompass Logo" className="w-20 h-20" />
-            <h1 className="font-heading text-5xl leading-[0.92] text-white sm:text-6xl md:text-7xl">
-              {lines.map((line, index) => (
-                <span key={index} className="block">
-                  {line}
-                  <span className="text-blue">.</span>
-                </span>
-              ))}
+          <div className="max-w-[720px]">
+            <img
+              src="/img/logo compass.png"
+              alt="Project Kompass"
+              className="mb-6 h-[72px] w-auto object-contain md:h-[96px] md:w-[117px]"
+            />
+            <h1 className="font-heading text-[clamp(2.75rem,6.5vw,4.58rem)] leading-[1.18] tracking-[0.015em] text-white whitespace-pre-line">
+              {headlineDisplay}
             </h1>
 
             <a
               href={blok.button_link}
-              className="mt-8 inline-block bg-blue px-4 py-1.5 text-[11px] font-bold uppercase tracking-wide text-navy-dark transition-colors hover:bg-blue/90"
+              className="font-heading mt-10 inline-flex h-[51px] min-w-[168px] items-center justify-center bg-blue px-5 text-xl leading-7 tracking-wide text-black transition-colors hover:bg-blue/90"
             >
               {blok.button_text}
             </a>
@@ -52,15 +53,23 @@ export default function Hero({ blok }: HeroProps) {
         </div>
       </div>
 
-      <AnimatedDottedPath
-        direction="up-right"
-        dotCount={20}
-        color="#d5d8e0"
-        showX={true}
-        className="pointer-events-none absolute bottom-8 right-8 h-44 w-44 opacity-80 md:bottom-12 md:right-12 md:h-52 md:w-52"
+      <div
+        className="pointer-events-none absolute bottom-[4%] right-[1%] z-[1] flex h-[min(52vw,420px)] w-[min(55vw,480px)] items-center justify-center opacity-50 md:bottom-[6%] md:right-[3%]"
+        aria-hidden
+      >
+        <img
+          src={FIGMA_DOTTED_LINE}
+          alt=""
+          className="max-h-full max-w-full object-contain"
+          style={{ transform: "rotate(113deg)" }}
+        />
+      </div>
+      <img
+        src={FIGMA_MAP_X}
+        alt=""
+        className="pointer-events-none absolute bottom-[14%] right-[8%] z-[1] h-16 w-16 opacity-40 object-contain md:bottom-[16%] md:right-[10%] md:h-20 md:w-20"
+        aria-hidden
       />
-
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-linear-to-t from-navy-dark to-transparent" />
     </section>
   );
 }

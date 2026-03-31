@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Black_Han_Sans, Roboto } from "next/font/google";
+import { Black_Han_Sans, Montserrat } from "next/font/google";
 import "./globals.css";
 import "@/lib/storyblok";
 import StoryblokProvider from "@/components/StoryblokProvider";
@@ -12,16 +12,10 @@ const blackHanSans = Black_Han_Sans({
   variable: "--font-heading",
 });
 
-const roboto = Roboto({
-  weight: ["400", "500", "700"],
+const montserrat = Montserrat({
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
   variable: "--font-body",
-});
-
-const fallbackMono = Roboto({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-geist-mono",
 });
 
 export const metadata: Metadata = {
@@ -39,9 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${blackHanSans.variable} ${roboto.variable} ${fallbackMono.variable} antialiased`}
-      >
+      <body className={`${blackHanSans.variable} ${montserrat.variable} antialiased`}>
         <Navigation />
         <StoryblokProvider>
           {children}

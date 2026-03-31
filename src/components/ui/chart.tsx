@@ -40,18 +40,28 @@ export function ChartTooltipContent({
   payload,
   label,
   config,
+  theme = "dark",
 }: {
   active?: boolean;
   payload?: Array<{ dataKey?: string; name?: string; value?: number }>;
   label?: string;
   config: ChartConfig;
+  theme?: "dark" | "light";
 }) {
   if (!active || !payload?.length) {
     return null;
   }
 
+  const light = theme === "light";
+
   return (
-    <div className="rounded-md border border-white/20 bg-navy-dark/95 p-3 text-xs text-white shadow-lg">
+    <div
+      className={`rounded-md border p-3 text-xs shadow-lg ${
+        light
+          ? "border-black/10 bg-white text-navy-dark"
+          : "border-white/20 bg-navy-dark/95 text-white"
+      }`}
+    >
       <p className="mb-2 font-semibold">{label}</p>
       <div className="space-y-1.5">
         {payload.map((item) => {
@@ -63,7 +73,9 @@ export function ChartTooltipContent({
                 className="inline-block h-2.5 w-2.5 rounded-full"
                 style={{ backgroundColor: chartItem?.color ?? "#fff" }}
               />
-              <span className="text-white/85">{chartItem?.label ?? key}</span>
+              <span className={light ? "text-navy-dark/80" : "text-white/85"}>
+                {chartItem?.label ?? key}
+              </span>
               <span className="ml-auto font-medium">{item.value ?? 0}</span>
             </div>
           );

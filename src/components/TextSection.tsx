@@ -1,5 +1,7 @@
 import { storyblokEditable } from "@storyblok/react/rsc";
-import AnimatedDottedPath from "@/components/AnimatedDottedPath";
+import { FIGMA_DOTTED_LINE, FIGMA_MAP_X } from "@/lib/figmaAssets";
+
+const BROWN_PAPER = "/img/figma/brown-paper.jpg";
 
 interface TextSectionProps {
   blok: {
@@ -28,62 +30,97 @@ export default function TextSection({ blok }: TextSectionProps) {
   } as const;
   const isNavy = blok.backgrond_color === "navy";
 
-  // const headlineWithUnderline = blok.headline?.replace(
-  //   /transitions./gi,
-  //   '<span class="relative inline-block"><span class="relative z-10">transitions.</span><span class="absolute left-0 bottom-[0.1em] w-full h-full bg-green"></span></span>',  
-  // );
   const highlightStyles: Record<string, string> = {
-    transitions: "bg-orange",
-    pathways: "bg-navy",
-    navigating: "bg-green",
+    pathways: "bg-orange box-decoration-clone px-1",
+    navigating: "bg-green box-decoration-clone px-1",
+    transitions: "bg-navy box-decoration-clone px-1",
   };
-  
-  const pattern = /\b(transitions|pathways|navigating)\b/gi;
-  
-  const headlineWithUnderline = blok.headline?.replace(pattern, (match) => {
-    const colorClass = highlightStyles[match.toLowerCase()] ?? "bg-green";
-  
-    return `<span class="relative inline-block">
-      <span class="relative z-10">${match}</span>
-      <span class="absolute left-0 bottom-[0.1em] w-full h-full ${colorClass}"></span>
-    </span>`;
-  });
-  
-  
+
+  const pattern = /\b(pathways|navigating|transitions\.?)\b/gi;
+
+  const headlineHtml =
+    blok.headline?.replace(pattern, (match) => {
+      const key = match.toLowerCase().replace(/\.$/, "");
+      const cls = highlightStyles[key] ?? highlightStyles.transitions;
+      return `<span class="${cls}">${match}</span>`;
+    }) ?? "";
+
+  const paperUrl = blok.background_image?.filename || (blok.backgrond_color === "tan" ? BROWN_PAPER : undefined);
+
+  const decorOpacity = isNavy ? "opacity-35" : blok.backgrond_color === "white" ? "opacity-25" : "opacity-30";
 
   return (
-    <section {...storyblokEditable(blok)} className="relative py-14 md:py-16">
-      <div className="pr-4 md:pr-0" style={{ marginLeft: "max(1rem, calc((100vw - 1200px) / 2 + 1rem))" }}>
-        <div
-          className={`relative overflow-hidden px-6 py-10 md:px-12 md:py-14 ${bgColorMap[blok.backgrond_color]}`}
-          style={{
-            backgroundImage: blok.background_image?.filename
-              ? `url(${blok.background_image.filename})`
-              : undefined,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
-          <div className="max-w-[720px]">
+    <section {...storyblokEditable(blok)} className="relative w-full overflow-x-clip">
+      <div
+        className={`relative py-14 md:py-20 ${bgColorMap[blok.backgrond_color]}`}
+        style={
+          paperUrl
+            ? {
+                backgroundImage: `url(${paperUrl})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }
+            : isNavy
+              ? { backgroundColor: "transparent" }
+              : blok.backgrond_color === "white"
+                ? { backgroundColor: "#ffffff" }
+                : undefined
+        }
+      >
+        <div className="section-shell relative z-10 px-4 md:px-6">
+          <div className="max-w-[800px]">
             <h2
-              className={`font-heading text-4xl leading-none md:text-[54px] ${isNavy ? "text-white" : "text-black"}`}
-              dangerouslySetInnerHTML={{ __html: headlineWithUnderline || blok.headline }}
+              className={`font-heading text-[clamp(2rem,4vw,3.625rem)] leading-[1.38] tracking-[0.01em] md:leading-[80px] ${
+                isNavy ? "text-white" : "text-black"
+              }`}
+              dangerouslySetInnerHTML={{ __html: headlineHtml || blok.headline }}
             />
-            <p className={`mt-5 max-w-[620px] whitespace-pre-wrap text-[13px] leading-relaxed md:text-sm ${isNavy ? "text-white/90" : "text-black"}`}>{blok.body}</p>
+            <div
+              className={`mt-8 max-w-[766px] space-y-4 text-base font-medium leading-[26px] tracking-[0.01em] whitespace-pre-wrap md:text-base ${
+                isNavy ? "text-white/90" : "text-black"
+              }`}
+            >
+              {blok.body}
+            </div>
             <a
               href={blok.button_link || "#"}
-              className={`font-heading mt-7 inline-block px-4 py-2.5 text-[20px] font-bold uppercase tracking-wide transition-colors ${isNavy ? "bg-white textblack hover:bg-white/90" : "bg-blue text-black hover:bg-blue/90"}`}
+              className={`font-heading mt-10 inline-flex h-[51px] min-w-[200px] items-center justify-center px-5 text-xl leading-7 tracking-wide transition-colors ${
+                isNavy
+                  ? "bg-white text-black hover:bg-white/90"
+                  : "bg-blue text-black hover:bg-blue/90"
+              }`}
             >
               {blok.button_text || "Submit a referral"}
             </a>
           </div>
+        </div>
 
-          <AnimatedDottedPath
-            direction="down-right"
-            dotCount={14}
-            color="#2d3554"
-            showX={true}
-            className="pointer-events-none absolute -right-6 top-6 h-40 w-40 opacity-70 md:right-10 md:top-8 md:h-48 md:w-48"
+        <div
+          className={`pointer-events-none absolute top-2 right-0 z-[1] hidden h-[min(70vh,520px)] w-[min(45vw,340px)] md:block ${decorOpacity}`}
+          aria-hidden
+        >
+          <img
+            src={FIGMA_DOTTED_LINE}
+            alt=""
+            className="h-full w-full object-contain object-right-top"
+            style={{ transform: "rotate(178deg)" }}
+          />
+        </div>
+        <img
+          src={FIGMA_MAP_X}
+          alt=""
+          className={`pointer-events-none absolute right-[8%] top-[38%] z-[1] hidden h-14 w-14 object-contain md:block ${decorOpacity}`}
+          aria-hidden
+        />
+        <div
+          className={`pointer-events-none absolute bottom-6 left-2 z-[1] h-36 w-44 md:bottom-10 md:left-6 md:h-44 md:w-52 ${decorOpacity}`}
+          aria-hidden
+        >
+          <img
+            src={FIGMA_DOTTED_LINE}
+            alt=""
+            className="h-full w-full object-contain object-left-bottom"
+            style={{ transform: "scaleX(-1) rotate(-8deg)" }}
           />
         </div>
       </div>

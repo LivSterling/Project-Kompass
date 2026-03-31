@@ -1,26 +1,60 @@
 import Link from "next/link";
 
 export default function Footer() {
-  const iconClass = "h-3.5 w-3.5 text-white/80";
+  const iconClass = "h-4 w-4 shrink-0 text-white/85";
 
   return (
-    <footer className="bg-navy-deep py-10 text-white">
+    <footer className="bg-navy-dark py-12 text-white md:py-16">
       <div className="section-shell px-4 md:px-6">
-        <div className="grid grid-cols-1 gap-2 md:grid-cols-4">
-             
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-4 md:gap-8">
           <div>
-            <div className="mb-3 flex items-center gap-.5">
-              <img src="/img/logo.png" alt="Project Kompass logo" className="h-6 w-auto" />
+            <div className="mb-4">
+              <img src="/img/logo.png" alt="Project Kompass" className="h-10 w-auto md:h-12" />
             </div>
-            <div className="space-y-1.5 text-[11px] text-white/75">
+            <div className="mt-4 flex gap-3">
+              <a
+                href="#"
+                aria-label="Instagram"
+                className="flex h-9 w-9 items-center justify-center text-white/85 transition hover:text-white"
+              >
+                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <rect x="2" y="2" width="20" height="20" rx="6" />
+                  <circle cx="12" cy="12" r="4" />
+                  <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+                </svg>
+              </a>
+              <a
+                href="#"
+                aria-label="Facebook"
+                className="flex h-9 w-9 items-center justify-center text-white/85 transition hover:text-white"
+              >
+                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.7-1.6H17V4.8A19 19 0 0 0 14.5 4c-2.5 0-4.1 1.5-4.1 4.3V11H7.8v3h2.6v8h3.1Z" />
+                </svg>
+              </a>
+              <a
+                href="#"
+                aria-label="LinkedIn"
+                className="flex h-9 w-9 items-center justify-center text-white/85 transition hover:text-white"
+              >
+                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M6.5 8.5h3V21h-3V8.5ZM8 3.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM13 8.5h2.9v1.7h.04c.4-.75 1.4-1.55 2.9-1.55 3.1 0 3.7 2 3.7 4.7V21h-3.1v-5.6c0-1.34-.03-3.06-1.86-3.06-1.86 0-2.14 1.45-2.14 2.95V21H13V8.5Z" />
+                </svg>
+              </a>
+            </div>
+            <div className="mt-6 space-y-3 text-[15px] font-semibold leading-[30px] tracking-wide text-white">
               <p className="flex items-start gap-2">
-                <span className="mt-0.5">
-                  <svg className={iconClass} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M12 13.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z" />
-                    <path d="M19 10.5C19 16 12 22 12 22S5 16 5 10.5a7 7 0 1 1 14 0Z" />
-                  </svg>
+                <svg className={iconClass} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M12 13.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z" />
+                  <path d="M19 10.5C19 16 12 22 12 22S5 16 5 10.5a7 7 0 1 1 14 0Z" />
+                </svg>
+                <span>
+                  Project Kompass
+                  <br />
+                  192 Appleton St
+                  <br />
+                  Lowell, MA, 01852
                 </span>
-                <span>Project Kompass<br />192 Appleton St<br />Lowell, MA, 01852</span>
               </p>
               <p className="flex items-center gap-2">
                 <svg className={iconClass} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -33,55 +67,38 @@ export default function Footer() {
                   <path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z" />
                   <path d="m22 7-10 6L2 7" />
                 </svg>
-                <span>info@projectkompass.org</span>
+                <a href="mailto:info@projectkompass.org" className="transition hover:text-white/90">
+                  info@projectkompass.org
+                </a>
               </p>
-            </div>
-            <div className="mt-3 flex gap-2">
-              <a href="#" aria-label="Instagram" className="rounded-full border border-white/25 p-1.5 text-white/80 transition hover:text-white">
-                <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <rect x="2" y="2" width="20" height="20" rx="6" />
-                  <circle cx="12" cy="12" r="4" />
-                  <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
-                </svg>
-              </a>
-              <a href="#" aria-label="Facebook" className="rounded-full border border-white/25 p-1.5 text-white/80 transition hover:text-white">
-                <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.7-1.6H17V4.8A19 19 0 0 0 14.5 4c-2.5 0-4.1 1.5-4.1 4.3V11H7.8v3h2.6v8h3.1Z" />
-                </svg>
-              </a>
-              <a href="#" aria-label="YouTube" className="rounded-full border border-white/25 p-1.5 text-white/80 transition hover:text-white">
-                <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M23 12s0-3.2-.4-4.7a2.9 2.9 0 0 0-2-2C19 5 12 5 12 5s-7 0-8.6.3a2.9 2.9 0 0 0-2 2C1 8.8 1 12 1 12s0 3.2.4 4.7a2.9 2.9 0 0 0 2 2C5 19 12 19 12 19s7 0 8.6-.3a2.9 2.9 0 0 0 2-2c.4-1.5.4-4.7.4-4.7ZM9.7 15.5V8.5l6 3.5-6 3.5Z" />
-                </svg>
-              </a>
             </div>
           </div>
 
           <div>
-            <h3 className="font-heading mb-3 text-sm text-white">About</h3>
-            <ul className="space-y-1.5 text-[13 px] text-white/70">
+            <h3 className="font-heading mb-4 text-xl tracking-wide text-white md:text-2xl">About</h3>
+            <ul className="space-y-2.5 text-[15px] font-semibold leading-normal tracking-wide text-white/90">
               <li>
-                <Link href="/about" className="hover:text-white transition">
+                <Link href="/about" className="transition hover:text-white">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/about#team" className="hover:text-white transition">
-                  Our Team
+                <Link href="/about#team" className="transition hover:text-white">
+                  Our team
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-white transition">
+                <Link href="/contact" className="transition hover:text-white">
                   Contact Us
                 </Link>
               </li>
               <li>
-                <Link href="/careers" className="hover:text-white transition">
-                  Get Involved
+                <Link href="/careers" className="transition hover:text-white">
+                  Get involved
                 </Link>
               </li>
               <li>
-                <Link href="/news" className="hover:text-white transition">
+                <Link href="/news" className="transition hover:text-white">
                   News and Events
                 </Link>
               </li>
@@ -89,30 +106,30 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="font-heading mb-3 text-sm text-white">Programs</h3>
-            <ul className="space-y-1.5 text-[11px] text-white/70">
+            <h3 className="font-heading mb-4 text-xl tracking-wide text-white md:text-2xl">Programs</h3>
+            <ul className="space-y-2.5 text-[15px] font-semibold leading-normal tracking-wide text-white/90">
               <li>
-                <Link href="/programs/transitional-housing" className="hover:text-white transition">
+                <Link href="/programs/transitional-housing" className="transition hover:text-white">
                   Transitional Housing
                 </Link>
               </li>
               <li>
-                <Link href="/programs/community-center" className="hover:text-white transition">
+                <Link href="/programs/community-center" className="transition hover:text-white">
                   Community Center
                 </Link>
               </li>
               <li>
-                <Link href="/programs/project-farm" className="hover:text-white transition">
+                <Link href="/programs/project-farm" className="transition hover:text-white">
                   Project Farm
                 </Link>
               </li>
               <li>
-                <Link href="/programs/jump-start" className="hover:text-white transition">
+                <Link href="/programs/jump-start" className="transition hover:text-white">
                   Project Jump Start
                 </Link>
               </li>
               <li>
-                <Link href="/news" className="hover:text-white transition">
+                <Link href="/news" className="transition hover:text-white">
                   News and Events
                 </Link>
               </li>
@@ -120,26 +137,26 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="font-heading mb-3 text-sm text-white">Services</h3>
-            <ul className="space-y-1.5 text-[11px] text-white/70">
+            <h3 className="font-heading mb-4 text-xl tracking-wide text-white md:text-2xl">Services</h3>
+            <ul className="space-y-2.5 text-[15px] font-semibold leading-normal tracking-wide text-white/90">
               <li>
-                <Link href="/services/community-resources" className="hover:text-white transition">
+                <Link href="/services/community-resources" className="transition hover:text-white">
                   Community Resources
                 </Link>
               </li>
               <li>
-                <Link href="/services/code-of-ethics" className="hover:text-white transition">
+                <Link href="/services/code-of-ethics" className="transition hover:text-white">
                   Code of Ethics and Business Conduct
                 </Link>
               </li>
               <li>
-                <Link href="/services/whistleblower" className="hover:text-white transition">
+                <Link href="/services/whistleblower" className="transition hover:text-white">
                   Whistleblower Policy
                 </Link>
               </li>
               <li>
-                <Link href="/services/diversity" className="hover:text-white transition">
-                  Diversity and Opportunity
+                <Link href="/services/diversity" className="transition hover:text-white">
+                  Equal Employment Opportunity
                 </Link>
               </li>
             </ul>

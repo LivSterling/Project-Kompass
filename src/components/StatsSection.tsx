@@ -1,6 +1,9 @@
 import { storyblokEditable } from "@storyblok/react/rsc";
 import ImpactChart, { type ImpactDataPoint } from "@/components/ImpactChart";
-import AnimatedDottedPath from "@/components/AnimatedDottedPath";
+import ImpactDonut from "@/components/ImpactDonut";
+import { FIGMA_IMPACT_LINE, FIGMA_MAP_X } from "@/lib/figmaAssets";
+
+const PK_TEXTURE = "/img/figma/pk-texture.png";
 
 interface StatsSectionProps {
   blok: {
@@ -42,34 +45,66 @@ export default function StatsSection({ blok }: StatsSectionProps) {
         ];
 
   return (
-    <section {...storyblokEditable(blok)} className="relative bg-white-50% py-16 md:py-20">
-      <div className="section-shell px-4 md:px-6">
-        <div className="grid items-start gap-10 md:grid-cols-[1.2fr_1fr]">
-          <div>
-            <h2 className="font-heading text-4xl leading-none text-orange md:text-6xl">{blok.headline}</h2>
-            {blok.body && <p className="mt-5 max-w-[700px] text-sm leading-relaxed text-white/85 md:text-base">{blok.body}</p>}
-            <h3 className="mt-6 text-sm font-semibold uppercase tracking-widest text-white/80">
-              {blok.chart_title || "People Served Over Time"}
-            </h3>
-            <div className="mt-3">
-              <ImpactChart data={parsedChartData} />
-            </div>
-          </div>
+    <section {...storyblokEditable(blok)} className="relative overflow-x-clip bg-white py-16 md:py-24">
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.22]"
+        style={{
+          backgroundImage: `url(${PK_TEXTURE})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+        aria-hidden
+      />
 
-          <div className="relative min-h-[240px] rounded-sm bg-white/5 p-4">
-            <img
-              src={blok.chart_image_2?.filename || blok.chart_image_1?.filename || "/img/bg.png"}
-              alt={blok.chart_image_2?.alt || blok.chart_image_1?.alt || "Impact visual"}
-              className="h-full max-h-[300px] w-full object-cover object-center"
-            />
+      <div className="section-shell relative z-10 px-4 md:px-6">
+        <h2 className="font-heading text-[clamp(2.25rem,5vw,4.5rem)] uppercase leading-none tracking-wide text-orange">
+          {blok.headline}
+        </h2>
+
+        {blok.body && (
+          <p className="mt-6 max-w-[983px] whitespace-pre-wrap text-xl leading-[30px] tracking-wide text-black">
+            {blok.body}
+          </p>
+        )}
+
+        <div className="mt-14 grid min-w-0 items-end gap-10 md:grid-cols-2 md:gap-12 lg:gap-16">
+          <div className="min-w-0">
+            {blok.chart_title ? (
+              <h3 className="mb-3 text-sm font-semibold uppercase tracking-widest text-[#474747]">
+                {blok.chart_title}
+              </h3>
+            ) : null}
+            <ImpactChart data={parsedChartData} variant="onLight" />
+          </div>
+          <div className="flex justify-center md:justify-end">
+            {blok.chart_image_2?.filename ? (
+              <img
+                src={blok.chart_image_2.filename}
+                alt={blok.chart_image_2.alt || "Impact distribution"}
+                className="max-h-[340px] w-full max-w-[375px] object-contain"
+              />
+            ) : (
+              <ImpactDonut />
+            )}
           </div>
         </div>
 
-        <AnimatedDottedPath
-          direction="up-right"
-          dotCount={12}
-          color="#f39a58"
-          className="pointer-events-none absolute bottom-2 right-5 h-36 w-36 opacity-70 md:bottom-4 md:right-12"
+        <div
+          className="pointer-events-none absolute top-0 right-[-5%] z-[1] hidden h-[min(90vh,760px)] w-[min(95vw,610px)] opacity-30 md:block"
+          aria-hidden
+        >
+          <img
+            src={FIGMA_IMPACT_LINE}
+            alt=""
+            className="h-full w-full object-contain object-right-top"
+            style={{ transform: "rotate(-95.67deg)" }}
+          />
+        </div>
+        <img
+          src={FIGMA_MAP_X}
+          alt=""
+          className="pointer-events-none absolute bottom-[12%] right-[6%] z-[1] hidden h-20 w-20 opacity-30 object-contain md:block"
+          aria-hidden
         />
       </div>
     </section>
