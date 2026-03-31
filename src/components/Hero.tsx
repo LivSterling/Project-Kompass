@@ -1,48 +1,51 @@
-import {storyblokEditable } from "@storyblok/react/rsc";
+import { storyblokEditable } from "@storyblok/react/rsc";
+import { FIGMA_DOTTED_LINE, FIGMA_MAP_X } from "@/lib/figmaAssets";
 
 interface HeroProps {
-    blok: {
-        headline: string;
-        subheadline: string;
-        button_text: string;
-        button_link: string;
-        background_image: {
-            filename: string;
-            alt?: string;
-        };
-        image_alt: string;
+  blok: {
+    headline: string;
+    subheadline: string;
+    button_text: string;
+    button_link: string;
+    background_image: {
+      filename: string;
+      alt?: string;
     };
+    image_alt: string;
+  };
 }
 
 export default function Hero({ blok }: HeroProps) {
-    return (
-        <section {...storyblokEditable(blok)} className="relative h-screen">
-            {/* Background Image */}
-            <div className="absolute inset-0">
-                <img src={blok.background_image.filename} alt={blok.image_alt} className="w-full h-full object-cover" />
-                {/* Gradient overlay - radial gradient from transparent to navy-dark at 40% */}
-                <div className="absolute inset-0 bg-radial from-transparent via-transparent via-40% to-navy-dark/60"></div>
-            </div>
-            
+  const headlineDisplay = blok.headline?.replace(/\.\s+/g, ".\n").trim() ?? "";
 
-            {/* Content */}
-      <div className="relative z-10 h-full flex items-center">
-        <div className="container mx-auto px-6">
-          <div className="max-w-2xl">
-            {/* Split headline by periods to create the stacked effect */}
-            <h1 className="text-6xl md:text-7xl font-bold text-white leading-tight mb-8">
-              {blok.headline.split('.').map((line, index) => (
-                line.trim() && (
-                  <span key={index} className="block">
-                    {line.trim()}.
-                  </span>
-                )
-              ))}
+  return (
+    <section {...storyblokEditable(blok)} className="relative min-h-[min(100vh,1024px)] overflow-hidden pt-28 md:pt-32">
+      <div className="absolute inset-0">
+        <img src={blok.background_image.filename} alt={blok.image_alt} className="h-full w-full object-cover" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 95% 115% at 78% 45%, rgba(37,43,66,0.12) 0%, rgba(37,43,66,0.55) 45%, rgba(37,43,66,0.82) 100%)",
+          }}
+        />
+      </div>
+
+      <div className="relative z-10 flex min-h-[min(100vh,1024px)] items-center pb-24">
+        <div className="section-shell w-full px-4 md:px-6">
+          <div className="max-w-[720px]">
+            <img
+              src="/img/logo compass.png"
+              alt="Project Kompass"
+              className="mb-6 h-[72px] w-auto object-contain md:h-[96px] md:w-[117px]"
+            />
+            <h1 className="font-heading text-[clamp(2.75rem,6.5vw,4.58rem)] leading-[1.18] tracking-[0.015em] text-white whitespace-pre-line">
+              {headlineDisplay}
             </h1>
-            
-            <a 
+
+            <a
               href={blok.button_link}
-              className="inline-block bg-blue hover:bg-navy text-white px-8 py-3 text-lg font-semibold transition-colors"
+              className="font-heading mt-10 inline-flex h-[51px] min-w-[168px] items-center justify-center bg-blue px-5 text-xl leading-7 tracking-wide text-black transition-colors hover:bg-blue/90"
             >
               {blok.button_text}
             </a>
@@ -50,18 +53,23 @@ export default function Hero({ blok }: HeroProps) {
         </div>
       </div>
 
-      {/* Dotted path decoration - positioned at bottom right */}
-      <div className="absolute bottom-0 right-0 w-64 h-64 pointer-events-none">
-        <svg className="w-full h-full opacity-30" viewBox="0 0 200 200">
-          <path
-            d="M 10 190 Q 50 150 100 120 T 190 10"
-            stroke="white"
-            strokeWidth="2"
-            fill="none"
-            strokeDasharray="5,5"
-          />
-        </svg>
+      <div
+        className="pointer-events-none absolute bottom-[4%] right-[1%] z-[1] flex h-[min(52vw,420px)] w-[min(55vw,480px)] items-center justify-center opacity-50 md:bottom-[6%] md:right-[3%]"
+        aria-hidden
+      >
+        <img
+          src={FIGMA_DOTTED_LINE}
+          alt=""
+          className="max-h-full max-w-full object-contain"
+          style={{ transform: "rotate(113deg)" }}
+        />
       </div>
+      <img
+        src={FIGMA_MAP_X}
+        alt=""
+        className="pointer-events-none absolute bottom-[14%] right-[8%] z-[1] h-16 w-16 opacity-40 object-contain md:bottom-[16%] md:right-[10%] md:h-20 md:w-20"
+        aria-hidden
+      />
     </section>
   );
 }

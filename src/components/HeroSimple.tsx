@@ -32,7 +32,11 @@ export default function HeroSimple({ blok }: HeroSimpleProps) {
 
             {/* Background Image */}
             <div className="absolute inset-0">
-                <img src={blok.background_image.filename} alt="" className="w-full h-full object-cover" />
+                {blok.background_image?.filename ? (
+                    <img src={blok.background_image.filename} alt="" className="h-full w-full object-cover" />
+                ) : (
+                    <div className="h-full w-full bg-navy-dark" aria-hidden />
+                )}
                 {/* Gradient overlay - radial gradient from transparent to navy-dark at 40% */}
                 
             </div>
@@ -52,7 +56,7 @@ export default function HeroSimple({ blok }: HeroSimpleProps) {
                 </svg>
             </div>
 
-            <div className="container mx-auto px-6 relative z-10">
+            <div className="section-shell relative z-10 px-4 md:px-6">
                 <div className="max-w-3xl">
                     {blok.icon && (
                         <div className="mb-6">
