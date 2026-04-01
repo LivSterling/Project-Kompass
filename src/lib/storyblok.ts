@@ -14,6 +14,9 @@ import AboutHistorySection from "@/components/about/AboutHistorySection";
 import AboutValuesSection from "@/components/about/AboutValuesSection";
 import AboutRoadSection from "@/components/about/AboutRoadSection";
 import ValueCard from "@/components/about/ValueCard";
+import TeamHero from "@/components/team/TeamHero";
+import TeamGridSection from "@/components/team/TeamGridSection";
+import TeamMemberCard from "@/components/team/TeamMemberCard";
 
 // Custom fetch function to disable Next.js caching
 const cachedFetch = (input: RequestInfo | URL, init?: RequestInit) => {
@@ -43,6 +46,9 @@ export const getStoryblokApi = storyblokInit({
         about_values: AboutValuesSection,
         about_road: AboutRoadSection,
         value_card: ValueCard,
+        team_hero: TeamHero,
+        team_grid_section: TeamGridSection,
+        team_member: TeamMemberCard,
     },
     apiOptions: {
         fetch: cachedFetch,
