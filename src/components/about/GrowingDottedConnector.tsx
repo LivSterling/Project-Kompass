@@ -6,10 +6,23 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/** Figma segment height ~156px; vertical orange dotted rule between sections. */
+/** Figma segment height ~156px; vertical dotted rule between sections. */
 const LINE_HEIGHT_PX = 156;
 
-export default function GrowingDottedConnector({ className }: { className?: string }) {
+const DOT_COLORS = {
+  orange: "#fc8f4c",
+  blue: "#4c7fc8",
+} as const;
+
+export default function GrowingDottedConnector({
+  className,
+  variant = "orange",
+}: {
+  className?: string;
+  /** `blue` matches section headlines (`#4C7FC8`); `orange` for About and other pages. */
+  variant?: keyof typeof DOT_COLORS;
+}) {
+  const dotColor = DOT_COLORS[variant];
   const rootRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
@@ -56,8 +69,7 @@ export default function GrowingDottedConnector({ className }: { className?: stri
             className="h-full w-[5px] rounded-full"
             style={{
               marginLeft: "-2.5px",
-              backgroundImage:
-                "repeating-linear-gradient(to bottom, #fc8f4c 0px, #fc8f4c 6px, transparent 6px, transparent 14px)",
+              backgroundImage: `repeating-linear-gradient(to bottom, ${dotColor} 0px, ${dotColor} 6px, transparent 6px, transparent 14px)`,
             }}
           />
         </div>

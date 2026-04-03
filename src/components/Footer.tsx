@@ -17,7 +17,7 @@ export default function Footer() {
                 aria-label="Instagram"
                 className="flex h-9 w-9 items-center justify-center text-white/85 transition hover:text-white"
               >
-                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <svg className="h-10 w-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <rect x="2" y="2" width="20" height="20" rx="6" />
                   <circle cx="12" cy="12" r="4" />
                   <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
@@ -28,7 +28,7 @@ export default function Footer() {
                 aria-label="Facebook"
                 className="flex h-9 w-9 items-center justify-center text-white/85 transition hover:text-white"
               >
-                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                <svg className="h-10 w-10" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.7-1.6H17V4.8A19 19 0 0 0 14.5 4c-2.5 0-4.1 1.5-4.1 4.3V11H7.8v3h2.6v8h3.1Z" />
                 </svg>
               </a>
@@ -37,7 +37,7 @@ export default function Footer() {
                 aria-label="LinkedIn"
                 className="flex h-9 w-9 items-center justify-center text-white/85 transition hover:text-white"
               >
-                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                <svg className="h-10 w-10" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M6.5 8.5h3V21h-3V8.5ZM8 3.25a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM13 8.5h2.9v1.7h.04c.4-.75 1.4-1.55 2.9-1.55 3.1 0 3.7 2 3.7 4.7V21h-3.1v-5.6c0-1.34-.03-3.06-1.86-3.06-1.86 0-2.14 1.45-2.14 2.95V21H13V8.5Z" />
                 </svg>
               </a>
@@ -83,7 +83,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/about#team" className="transition hover:text-white">
+                <Link href="/our-team" className="transition hover:text-white">
                   Our team
                 </Link>
               </li>
