@@ -12,6 +12,8 @@ const LINE_HEIGHT_PX = 156;
 const DOT_COLORS = {
   orange: "#fc8f4c",
   blue: "#4c7fc8",
+  navy: "#345789",
+  green: "#82a969",
 } as const;
 
 export default function GrowingDottedConnector({
@@ -19,7 +21,7 @@ export default function GrowingDottedConnector({
   variant = "orange",
 }: {
   className?: string;
-  /** `blue` matches section headlines (`#4C7FC8`); `orange` for About and other pages. */
+  /** `blue` (`#4C7FC8`) / `navy` (`#345789`) match section headlines; `orange` for About and other pages. */
   variant?: keyof typeof DOT_COLORS;
 }) {
   const dotColor = DOT_COLORS[variant];
