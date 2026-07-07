@@ -47,30 +47,25 @@ Intro paragraph (centered white text) → green **Become a PKCC Client** button 
 
 ---
 
-### 3. `community_supports`  ← pinned horizontal-scroll section
+### 3. `scroll_cards` (generic block — use `card_style: services`) ← pinned horizontal-scroll section
 
-“HOW THE PKCC SUPPORTS OUR COMMUNITY” heading (orange `#FC8F4C`, uppercase) + a blue sub-headline, then the horizontally-scrolling cards. The growing dotted connector sits above it.
+“HOW THE PKCC SUPPORTS OUR COMMUNITY” heading (orange `#FC8F4C`, uppercase) + a blue
+sub-headline, then the horizontally-scrolling cards. The growing dotted connector sits
+above it. This is the shared `scroll_cards` block documented in
+**`STORYBLOK_SCROLL_CARDS_BLOCK.md`** — configure it for this page as:
 
-| Field         | Type            | Allowed nested | Notes |
-| ------------- | --------------- | -------------- | ----- |
-| `headline`    | Text (optional) | —              | Default: `How the PKCC Supports Our Community` |
-| `subheadline` | Textarea (optional) | —          | Default: `The PKCC brings together essential services, shared spaces, and partner supports to strengthen our community.` |
-| `cards`       | **Blocks**      | `support_card` only | Preferred field name. (`body` also accepted as a fallback name.) |
+| Field                | Value    | Notes |
+| -------------------- | -------- | ----- |
+| `headline`           | `How the PKCC Supports Our Community` | Default is fine |
+| `subheadline`        | `The PKCC brings together essential services, shared spaces, and partner supports to strengthen our community.` | Blue sub-headline |
+| `theme`              | `orange` | Orange heading + connector |
+| `card_style`         | `services` | Cards with optional schedule + CTA button |
+| `auto_color_cards`   | true     | Navy → green → orange → blue by position |
+| `headline_uppercase` | true     | Uppercase heading |
+| `cards`              | `scroll_card` blocks | See rows below |
 
----
-
-### 4. `support_card` (nested only — inside `community_supports.cards`)
-
-One service card (310×406 in the design). Color **auto-cycles** navy → green → orange → blue unless you override it.
-
-| Field          | Type             | Notes |
-| -------------- | ---------------- | ----- |
-| `title`        | Text             | e.g. `Food Pantry` |
-| `schedule`     | Text (optional)  | Bold first line, e.g. `Mon · Wed · Fri | 1:00–3:30 PM` |
-| `body`         | Textarea         | Card description; max ~334px, line breaks preserved. |
-| `card_color`   | Single-option (optional) | Override auto color: `navy` · `green` · `orange` · `blue` |
-| `button_label` | Text (optional)  | Optional CTA (blue button), e.g. `Request Computer Access` |
-| `button_link`  | Link (optional)  | Where the CTA points |
+Nested rows use the generic **`scroll_card`** block. Full field reference is in
+`STORYBLOK_SCROLL_CARDS_BLOCK.md`.
 
 **Add the following cards** (the design shows six visible at a time; these are the seven services to include):
 
@@ -88,7 +83,7 @@ One service card (310×406 in the design). Color **auto-cycles** navy → green 
 
 ---
 
-### 5. `community_guidelines`
+### 4. `community_guidelines`
 
 “PKCC GUIDELINES” heading (orange, uppercase) + a two-column layout: intro paragraphs and a bulleted guidelines list on the left, a portrait photo on the right. Dotted connector above.
 
@@ -112,27 +107,24 @@ The PKCC is privately operated, not a government agency
 
 ---
 
-### 6. `community_faq`
+### 5. `faq` (generic block — use `theme: orange`)
 
-“FAQ” heading (orange, uppercase) + an interactive accordion. A dotted connector sits above the heading **and** below the section (matching the Figma divider before the footer).
+“FAQ” heading (orange, uppercase) + an interactive accordion. A dotted connector sits
+above the heading **and** below the section (matching the Figma divider before the
+footer). This is the shared `faq` block documented in **`STORYBLOK_FAQ_BLOCK.md`** —
+configure it for this page as:
 
-| Field      | Type            | Allowed nested | Notes |
-| ---------- | --------------- | -------------- | ----- |
-| `headline` | Text (optional) | —              | Default: `FAQ` |
-| `items`    | **Blocks**      | `community_faq_item` only | Preferred field name. (`body` also accepted as a fallback name.) |
+| Field                   | Value    | Notes |
+| ----------------------- | -------- | ----- |
+| `headline`              | `FAQ`    | Default is fine |
+| `theme`                 | `orange` | Orange heading + orange connector |
+| `show_bottom_connector` | true     | Trailing connector into the footer (matches Figma) |
+| `default_item_accent`   | `orange` | Rows default to orange unless overridden |
+| `items`                 | `faq_item` blocks | See rows below |
 
----
-
-### 7. `community_faq_item` (nested only — inside `community_faq.items`)
-
-One accordion row. **Collapsed** = dark `#151825` bar with a right-chevron and white text. **Open** = colored bar, down-chevron, and the answer revealed in dark text. Clicking toggles it.
-
-| Field          | Type             | Notes |
-| -------------- | ---------------- | ----- |
-| `question`     | Text             | Row label |
-| `answer`       | Textarea         | Shown when the row is open; max ~610px, line breaks preserved. |
-| `accent_color` | Single-option (optional) | Open-state color: `orange` (default) · `green` · `blue` · `navy` |
-| `default_open` | Boolean (optional) | Start expanded (Figma opens the first row in orange and the last row in green) |
+Nested rows use the generic **`faq_item`** block (`question`, `answer`, `accent_color`
+of `orange`/`green`/`blue`/`navy`, `default_open`). Full field reference is in
+`STORYBLOK_FAQ_BLOCK.md`.
 
 **Items to create (from Figma):**
 
@@ -153,9 +145,9 @@ One accordion row. **Collapsed** = dark `#151825` bar with a right-chevron and w
 
 1. `community_hero`
 2. `community_intro` (intro text + “Become a PKCC Client” button + photo)
-3. `community_supports` (with 7× `support_card`) — pinned horizontal scroll
+3. `scroll_cards` (`card_style: services`, with 7× `scroll_card`) — pinned horizontal scroll
 4. `community_guidelines` (intro text + bullets + portrait photo)
-5. `community_faq` (with `community_faq_item` rows)
+5. `faq` (`theme: orange`, `show_bottom_connector: true`, with `faq_item` rows)
 
 ---
 
@@ -176,4 +168,4 @@ One accordion row. **Collapsed** = dark `#151825` bar with a right-chevron and w
 - Component map: `src/lib/storyblok.ts`
 - UI components: `src/components/community-center/*`
 - Route: `src/app/programs/community-center/page.tsx`
-- Scroll animations: GSAP `ScrollTrigger` — growing connector in `src/components/about/GrowingDottedConnector.tsx`; pinned horizontal scroll in `src/components/community-center/CommunitySupports.tsx`.
+- Scroll animations: GSAP `ScrollTrigger` — growing connector in `src/components/about/GrowingDottedConnector.tsx`; pinned horizontal scroll in `src/components/shared/PinnedCardSection.tsx` and `src/hooks/usePinnedHorizontalScroll.ts`.

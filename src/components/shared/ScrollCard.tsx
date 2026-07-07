@@ -2,39 +2,65 @@
 
 import { storyblokEditable, type SbBlokData } from "@storyblok/react";
 
-export type SupportCardBlok = {
+export type ScrollCardColor = "navy" | "green" | "orange" | "blue";
+export type ScrollCardStyle = "values" | "services";
+
+export type ScrollCardBlok = {
   _uid: string;
   component?: string;
   title?: string;
-  schedule?: string;
   body?: string;
-  /** Overrides the auto color cycle (navy → green → orange → blue). */
-  card_color?: "navy" | "green" | "orange" | "blue";
+  schedule?: string;
+  card_color?: ScrollCardColor;
   button_label?: string;
   button_link?: { url?: string; cached_url?: string };
 };
 
-const BG: Record<string, string> = {
+const BG: Record<ScrollCardColor, string> = {
   navy: "bg-[#345789]",
   green: "bg-[#82a969]",
   orange: "bg-orange",
   blue: "bg-[#4c7fc8]",
 };
 
-const CYCLE = ["navy", "green", "orange", "blue"] as const;
+const COLOR_CYCLE: ScrollCardColor[] = ["navy", "green", "orange", "blue"];
 
-export default function SupportCard({
+export default function ScrollCard({
   blok,
   index = 0,
+  cardStyle = "services",
+  autoColor = true,
+  defaultColor = "navy",
 }: {
-  blok: SupportCardBlok;
+  blok: ScrollCardBlok;
   index?: number;
+  cardStyle?: ScrollCardStyle;
+  autoColor?: boolean;
+  defaultColor?: ScrollCardColor;
 }) {
-  const autoColor = CYCLE[index % CYCLE.length];
-  const tone = blok.card_color && BG[blok.card_color] ? blok.card_color : autoColor;
+  const autoCycleColor = COLOR_CYCLE[index % COLOR_CYCLE.length];
+  const fallbackColor = autoColor ? autoCycleColor : defaultColor;
+  const tone =
+    blok.card_color && BG[blok.card_color] ? blok.card_color : fallbackColor;
 
   const buttonHref =
     blok.button_link?.url || blok.button_link?.cached_url || undefined;
+
+  if (cardStyle === "values") {
+    return (
+      <article
+        {...storyblokEditable(blok as SbBlokData)}
+        className={`flex h-[310px] w-[min(100vw-3rem,406px)] shrink-0 flex-col px-7 pb-8 pt-10 text-white shadow-sm md:w-[406px] ${BG[tone]}`}
+      >
+        <h3 className="font-heading -mt-2 mb-5 text-center text-[35px] leading-none tracking-[0.01em] text-white">
+          {blok.title}
+        </h3>
+        <p className="max-w-[334px] text-base font-medium leading-[26px] tracking-[0.01em] text-white">
+          {blok.body}
+        </p>
+      </article>
+    );
+  }
 
   return (
     <article

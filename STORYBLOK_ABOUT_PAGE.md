@@ -70,34 +70,42 @@ Tan paper hero: compass, “Who are we?”, and “We are **Project** **Kompass*
 
 ---
 
-### 5. `about_values` (nested + scroll)
+### 5. `scroll_cards` (generic block — use `card_style: values`)
 
-“Our Values” heading, **growing dotted connector** above (shared pattern), then a **pinned horizontal scroll**: vertical scroll pauses while cards move **right → left** (GSAP ScrollTrigger). Intended for **five** `value_card` blocks.
+“Our Values” heading, **growing dotted connector** above, then a **pinned horizontal scroll**:
+vertical scroll pauses while cards move **right → left** (GSAP ScrollTrigger). This is the
+shared `scroll_cards` block documented in **`STORYBLOK_SCROLL_CARDS_BLOCK.md`** — configure
+it for this page as:
 
-| Field   | Type   | Allowed nested components | Notes |
-| ------- | ------ | ------------------------- | ----- |
-| `headline` | Text (optional) | — | Default: `Our Values` |
-| `cards` | **Blocks** | `value_card` only | Preferred field name. |
+| Field                | Value      | Notes |
+| -------------------- | ---------- | ----- |
+| `headline`           | `Our Values` | Default is fine |
+| `theme`              | `orange`   | Orange heading + connector |
+| `card_style`         | `values`   | Simpler title/body cards (no schedule or CTA) |
+| `auto_color_cards`   | false      | Set `card_color` on each card manually |
+| `headline_uppercase` | false      | Title case heading |
+| `cards`              | `scroll_card` blocks | See suggested rows below |
 
-**Alternative field name:** if you prefer Storyblok’s usual convention, you can name the nested field `body` instead of `cards`; the frontend reads **`cards` first**, then falls back to **`body`**.
+Nested rows use the generic **`scroll_card`** block (`title`, `body`, `card_color` of
+`navy`/`green`/`orange`). Full field reference is in `STORYBLOK_SCROLL_CARDS_BLOCK.md`.
+
+Add **five** `scroll_card` instances for the Figma layout.
+
+**Suggested cards:**
+
+| `title`   | `card_color` | `body` |
+| --------- | ------------ | ------ |
+| value 1   | navy         | — |
+| value 2   | green        | — |
+| value 3   | orange       | — |
+| value 4   | navy         | — |
+| value 5   | green        | — |
+
+> Replace placeholder titles and fill in body copy as content becomes available.
 
 ---
 
-### 6. `value_card` (nested only)
-
-One colored card in the values row.
-
-| Field         | Type            | Notes |
-| ------------- | --------------- | ----- |
-| `title`       | Text            | e.g. `value 1` |
-| `body`        | Text / textarea | ~334px column in layout |
-| `card_color`  | Single option   | Options: `navy`, `green`, `orange` → `#345789`, `#82a969`, `#fc8f4c` |
-
-Add **five** instances inside `about_values` for the Figma layout.
-
----
-
-### 7. `about_road`
+### 6. `about_road`
 
 “The road we’ve traveled” full-width infographic (single image). Includes a **growing dotted connector** above and a small **X** mark asset at the bottom (same family as other pages).
 
@@ -113,7 +121,7 @@ Add **five** instances inside `about_values` for the Figma layout.
 2. `about_mission`  
 3. `about_impact`  
 4. `about_history`  
-5. `about_values` (with 5× `value_card`)  
+5. `scroll_cards` (`card_style: values`, with 5× `scroll_card`)
 6. `about_road`  
 
 Growing orange dotted segments are **built into** each section above (except the hero), so you do **not** need a separate “divider” blok unless you want one for editorial flexibility later.
@@ -124,12 +132,13 @@ Growing orange dotted segments are **built into** each section above (except the
 
 - **Background:** The fixed `body` background image is unchanged site-wide; About sections sit on top with transparent/navy treatment consistent with the rest of the site.
 - **Dotted lines:** Orange vertical rules **animate from 0 to full height** (~156px) as each section approaches the viewport while scrolling.
-- **Values:** While the values block is active, **page scroll is pinned** and maps to **horizontal** motion until all cards have crossed the viewport.
+- **Values:** While the scroll cards block is active, **page scroll is pinned** and maps to **horizontal** motion until all cards have crossed the viewport.
 
 ---
 
 ## Technical reference
 
 - Component map: `src/lib/storyblok.ts`  
-- About UI: `src/components/about/*`  
-- Scroll: GSAP `ScrollTrigger` in `AboutValuesSection` and `GrowingDottedConnector`
+- About UI: `src/components/about/*`
+- Scroll cards: `src/components/shared/PinnedCardSection.tsx`, `src/hooks/usePinnedHorizontalScroll.ts`
+- Connector: GSAP `ScrollTrigger` in `GrowingDottedConnector`

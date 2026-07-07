@@ -11,9 +11,7 @@ import AboutHero from "@/components/about/AboutHero";
 import AboutMissionSection from "@/components/about/AboutMissionSection";
 import AboutImpactSection from "@/components/about/AboutImpactSection";
 import AboutHistorySection from "@/components/about/AboutHistorySection";
-import AboutValuesSection from "@/components/about/AboutValuesSection";
 import AboutRoadSection from "@/components/about/AboutRoadSection";
-import ValueCard from "@/components/about/ValueCard";
 import TeamHero from "@/components/team/TeamHero";
 import TeamGridSection from "@/components/team/TeamGridSection";
 import TeamMemberCard from "@/components/team/TeamMemberCard";
@@ -22,20 +20,18 @@ import HousingIntro from "@/components/housing/HousingIntro";
 import HousingEligibility from "@/components/housing/HousingEligibility";
 import HousingExpectations from "@/components/housing/HousingExpectations";
 import HousingRequirement from "@/components/housing/HousingRequirement";
-import HousingFaq from "@/components/housing/HousingFaq";
-import HousingFaqItem from "@/components/housing/HousingFaqItem";
 import CommunityHero from "@/components/community-center/CommunityHero";
 import CommunityIntro from "@/components/community-center/CommunityIntro";
-import CommunitySupports from "@/components/community-center/CommunitySupports";
-import SupportCard from "@/components/community-center/SupportCard";
 import CommunityGuidelines from "@/components/community-center/CommunityGuidelines";
-import CommunityFaq from "@/components/community-center/CommunityFaq";
-import CommunityFaqItem from "@/components/community-center/CommunityFaqItem";
 import ProgramsHero from "@/components/programs/ProgramsHero";
 import ProgramsIntro from "@/components/programs/ProgramsIntro";
 import ProgramsList from "@/components/programs/ProgramsList";
 import ProgramAccordion from "@/components/programs/ProgramAccordion";
 import ProgramsNewsletter from "@/components/programs/ProgramsNewsletter";
+import FaqSection from "@/components/shared/FaqSection";
+import FaqItem from "@/components/shared/FaqItem";
+import PinnedCardSection from "@/components/shared/PinnedCardSection";
+import ScrollCard from "@/components/shared/ScrollCard";
 
 // Custom fetch function to disable Next.js caching
 const cachedFetch = (input: RequestInfo | URL, init?: RequestInit) => {
@@ -62,9 +58,7 @@ export const getStoryblokApi = storyblokInit({
         about_mission: AboutMissionSection,
         about_impact: AboutImpactSection,
         about_history: AboutHistorySection,
-        about_values: AboutValuesSection,
         about_road: AboutRoadSection,
-        value_card: ValueCard,
         team_hero: TeamHero,
         team_grid_section: TeamGridSection,
         team_member: TeamMemberCard,
@@ -73,20 +67,18 @@ export const getStoryblokApi = storyblokInit({
         housing_eligibility: HousingEligibility,
         housing_expectations: HousingExpectations,
         housing_requirement: HousingRequirement,
-        housing_faq: HousingFaq,
-        housing_faq_item: HousingFaqItem,
         community_hero: CommunityHero,
         community_intro: CommunityIntro,
-        community_supports: CommunitySupports,
-        support_card: SupportCard,
         community_guidelines: CommunityGuidelines,
-        community_faq: CommunityFaq,
-        community_faq_item: CommunityFaqItem,
         programs_hero: ProgramsHero,
         programs_intro: ProgramsIntro,
         programs_list: ProgramsList,
         program_item: ProgramAccordion,
         programs_newsletter: ProgramsNewsletter,
+        faq: FaqSection,
+        faq_item: FaqItem,
+        scroll_cards: PinnedCardSection,
+        scroll_card: ScrollCard,
     },
     apiOptions: {
         fetch: cachedFetch,

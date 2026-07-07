@@ -87,27 +87,22 @@ One numbered guideline. The number is added automatically (1, 2, 3 …) from its
 
 ---
 
-### 6. `housing_faq`
+### 6. `faq` (generic block — use `theme: navy`)
 
-“FAQ” heading + an interactive accordion. Dotted connector above.
+“FAQ” heading + an interactive accordion. Dotted connector above. This is the shared
+`faq` block documented in **`STORYBLOK_FAQ_BLOCK.md`** — configure it for this page as:
 
-| Field      | Type            | Allowed nested | Notes |
-| ---------- | --------------- | -------------- | ----- |
-| `headline` | Text (optional) | —              | Default: `FAQ` |
-| `items`    | **Blocks**      | `housing_faq_item` only | Preferred field name. (`body` also accepted as a fallback name.) |
+| Field                   | Value  | Notes |
+| ----------------------- | ------ | ----- |
+| `headline`              | `FAQ`  | Default is fine |
+| `theme`                 | `navy` | Navy heading + navy connector to match this page |
+| `show_bottom_connector` | false  | No trailing connector needed here |
+| `default_item_accent`   | `green`| Rows default to green unless overridden |
+| `items`                 | `faq_item` blocks | See suggested rows below |
 
----
-
-### 7. `housing_faq_item` (nested only — inside `housing_faq.items`)
-
-One accordion row. **Collapsed** = dark `#151825` bar with a right-chevron. **Open** = colored bar (green/blue), down-chevron, and the answer revealed in dark text. Clicking toggles it.
-
-| Field          | Type             | Notes |
-| -------------- | ---------------- | ----- |
-| `question`     | Text             | Row label |
-| `answer`       | Textarea         | Shown when the row is open; max ~567px, line breaks preserved. |
-| `accent_color` | Single-option (optional) | Open-state color: `green` (default) · `blue` |
-| `default_open` | Boolean (optional) | Start expanded (Figma opens “Who is eligible…” in green and “How is Project Kompass funded?” in blue) |
+Nested rows use the generic **`faq_item`** block (`question`, `answer`, `accent_color`
+of `green`/`blue` for this page, `default_open`). Full field reference is in
+`STORYBLOK_FAQ_BLOCK.md`.
 
 **Suggested items (from Figma):**
 
@@ -134,7 +129,7 @@ One accordion row. **Collapsed** = dark `#151825` bar with a right-chevron. **Op
 2. `housing_intro` (intro text + referral button + photo)
 3. `housing_eligibility`
 4. `housing_expectations` (with 8× `housing_requirement`)
-5. `housing_faq` (with `housing_faq_item` rows)
+5. `faq` (`theme: navy`, with `faq_item` rows)
 
 ---
 

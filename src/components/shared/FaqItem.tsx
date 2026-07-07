@@ -3,18 +3,22 @@
 import { useState } from "react";
 import { storyblokEditable, type SbBlokData } from "@storyblok/react";
 
-export type HousingFaqItemBlok = {
+export type FaqAccent = "orange" | "green" | "blue" | "navy";
+
+export type FaqItemBlok = {
   _uid: string;
   component?: string;
   question?: string;
   answer?: string;
-  accent_color?: "green" | "blue";
+  accent_color?: FaqAccent;
   default_open?: boolean;
 };
 
-const ACCENT_BG: Record<string, string> = {
+const ACCENT_BG: Record<FaqAccent, string> = {
+  orange: "bg-orange",
   green: "bg-green",
   blue: "bg-blue",
+  navy: "bg-navy",
 };
 
 function CircleArrow({ open }: { open: boolean }) {
@@ -37,9 +41,20 @@ function CircleArrow({ open }: { open: boolean }) {
   );
 }
 
-export default function HousingFaqItem({ blok }: { blok: HousingFaqItemBlok }) {
+export default function FaqItem({
+  blok,
+  defaultAccent = "orange",
+  answerMaxWidth = 610,
+}: {
+  blok: FaqItemBlok;
+  defaultAccent?: FaqAccent;
+  answerMaxWidth?: number;
+}) {
   const [open, setOpen] = useState<boolean>(blok.default_open === true);
-  const accent = blok.accent_color === "blue" ? "blue" : "green";
+  const accent =
+    blok.accent_color && ACCENT_BG[blok.accent_color]
+      ? blok.accent_color
+      : defaultAccent;
 
   return (
     <div
@@ -66,7 +81,10 @@ export default function HousingFaqItem({ blok }: { blok: HousingFaqItemBlok }) {
 
       {open && blok.answer ? (
         <div className="-mt-1 px-6 pb-5">
-          <p className="max-w-[567px] text-[16px] font-medium leading-[26px] tracking-[0.01em] whitespace-pre-wrap text-[#151825]">
+          <p
+            className="text-[16px] font-medium leading-[26px] tracking-[0.01em] whitespace-pre-wrap text-[#151825]"
+            style={{ maxWidth: answerMaxWidth }}
+          >
             {blok.answer}
           </p>
         </div>
