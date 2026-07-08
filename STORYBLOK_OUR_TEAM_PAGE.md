@@ -18,16 +18,19 @@ In the `page` blok, add these sections in order under **`blocks`**.
 
 ## Blocks to create
 
-### 1. `team_hero`
+### 1. `page_hero` (generic — replaces the old `team_hero`)
 
-Tan paper hero: compass, decorative dotted path + “map X” (same assets as About), and **Our** on the paper plus **Team** on the orange bar only (Figma). Site background stays the global `body` texture (`globals.css`).
+Tan paper hero: compass, decorative dotted path + “map X”, and **Our** on the paper plus
+**Team** on a colored bar. Full field reference in **`STORYBLOK_PAGE_HERO_BLOCK.md`**.
+Configure `lines` → one `hero_line` with these `hero_segment`s:
 
-| Field | Type | Notes |
-| ----- | ---- | ----- |
-| `compass_image` | Asset (optional) | Defaults to `/img/logo compass.png` if empty |
-| `title_prefix` | Text (optional) | Default: `Our` (black, no orange background) |
-| `title_highlight` | Text (optional) | Default: `Team` (black on orange bar) |
-| `title` | Text (optional) | Legacy: if prefix/highlight are empty, split on first space (e.g. `Our Team` → Our + Team) |
+| `text` | `bar_color` |
+| ------ | ----------- |
+| `Our ` | `none`      |
+| `Team` | `green`     |
+
+> The Figma uses an orange bar for “Team”; set `bar_color: orange` on that segment if you
+> prefer to match it exactly.
 
 ---
 
@@ -61,9 +64,12 @@ One person: portrait, orange name, white role (Figma).
 
 ## Recommended order in `page.blocks`
 
-1. `team_hero`  
+1. `page_hero` (generic)
 2. `team_grid_section` — headline `STAFF`, **`uppercase`: true**, nested `team_member` entries  
 3. `team_grid_section` — headline `Board of Directors`, **`uppercase`: false** (or unset), nested `team_member` entries  
+
+> **Migration note:** the old `team_hero` block is still mapped in code, so existing content
+> keeps rendering until you re-author with `page_hero`.
 
 ---
 

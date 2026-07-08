@@ -17,32 +17,40 @@ The **About** route loads the story `pages/about` and renders its root blok (usu
 
 ---
 
-## New blocks to create (About page only)
+## Blocks to use
 
-Create these in the Storyblok **Block library** and allow them on the About page’s `page` → **blocks** field (and nested where noted).
+Prefer the **generic, reusable blocks** below (allowed on the `page` → **blocks** field).
+Only `about_impact` and `about_road` stay About-specific.
 
-### 1. `about_hero`
+### 1. `page_hero` (generic — replaces the old `about_hero`)
 
-Tan paper hero: compass, “Who are we?”, and “We are **Project** **Kompass**” with green/navy highlights (matches Figma). Global site background (`body` texture) stays as implemented in CSS.
+Tan paper hero: compass, “Who are we?”, and “We are **Project** **Kompass**” with
+green/navy highlights. Full field reference in **`STORYBLOK_PAGE_HERO_BLOCK.md`**. Configure:
 
-| Field            | Type        | Notes |
-| ---------------- | ----------- | ----- |
-| `compass_image`  | Asset (optional) | Defaults to `/img/logo compass.png` if empty |
-| `who_heading`    | Text (optional)  | Default: `Who are we?` |
-| `line_prefix`    | Text (optional)  | Default: `We are ` (include trailing space if you customize) |
-| `highlight_green`| Text (optional)  | Default: `Project` |
-| `highlight_blue` | Text (optional)  | Default: `Kompass` |
+- `eyebrow`: `Who are we?`
+- `lines` → one `hero_line` with these `hero_segment`s:
+
+| `text`   | `bar_color` |
+| -------- | ----------- |
+| `We are `| `none`      |
+| `Project`| `green`     |
+| ` `      | `none`      |
+| `Kompass`| `navy`      |
 
 ---
 
-### 2. `about_mission`
+### 2. `content_section` (generic — replaces the old `about_mission`)
 
-“OUR MISSION” (or custom) + centered body on the navy textured background.
+“OUR MISSION” + centered body. Full field reference in
+**`STORYBLOK_CONTENT_SECTION_BLOCK.md`**. Configure:
 
-| Field      | Type   | Notes |
-| ---------- | ------ | ----- |
-| `headline` | Text (optional) | Default: `OUR MISSION` |
-| `body`     | Text / textarea / Richtext (plain) | Centered; ~864px max width in layout |
+| Field           | Value       |
+| --------------- | ----------- |
+| `headline`      | `Our Mission` |
+| `theme`         | `orange`    |
+| `headline_case` | `uppercase` |
+| `body_align`    | `center`    |
+| `body`          | Mission copy |
 
 ---
 
@@ -58,15 +66,20 @@ Tan paper hero: compass, “Who are we?”, and “We are **Project** **Kompass*
 
 ---
 
-### 4. `about_history`
+### 4. `content_section` (generic — replaces the old `about_history`)
 
-“Our History” + wide photo + long text (multiple paragraphs; use blank lines in a textarea or Richtext).
+“Our History” + wide photo + long text. Full field reference in
+**`STORYBLOK_CONTENT_SECTION_BLOCK.md`**. Configure:
 
-| Field      | Type   | Notes |
-| ---------- | ------ | ----- |
-| `headline` | Text (optional) | Default: `Our History` |
-| `image`    | Asset  | Wide crop; displayed up to ~864px wide |
-| `body`     | Text / textarea / Richtext | Preserves line breaks (`whitespace-pre-wrap`) |
+| Field            | Value        |
+| ---------------- | ------------ |
+| `headline`       | `Our History`|
+| `theme`          | `orange`     |
+| `headline_case`  | `capitalize` |
+| `image`          | Wide crop (864×521) |
+| `image_position` | `above`      |
+| `body_align`     | `left`       |
+| `body`           | History copy (line breaks preserved) |
 
 ---
 
@@ -117,14 +130,18 @@ Add **five** `scroll_card` instances for the Figma layout.
 
 ## Recommended order in `page.blocks`
 
-1. `about_hero`  
-2. `about_mission`  
-3. `about_impact`  
-4. `about_history`  
+1. `page_hero` (generic)
+2. `content_section` — Our Mission (generic)
+3. `about_impact` (About-specific)
+4. `content_section` — Our History (generic)
 5. `scroll_cards` (`card_style: values`, with 5× `scroll_card`)
-6. `about_road`  
+6. `about_road` (About-specific)
 
 Growing orange dotted segments are **built into** each section above (except the hero), so you do **not** need a separate “divider” blok unless you want one for editorial flexibility later.
+
+> **Migration note:** the old `about_hero`, `about_mission`, and `about_history` blocks are
+> still mapped in code, so existing content keeps rendering until you re-author with the
+> generic blocks.
 
 ---
 

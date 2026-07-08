@@ -14,35 +14,35 @@ All of these block types are already mapped in code (`src/lib/storyblok.ts`) and
 
 ## Blocks to create
 
-### 1. `community_hero`
+### 1. `page_hero` (generic — replaces the old `community_hero`)
 
-Tan paper hero: compass logo + two-line title with colored highlight bars (matches Figma: **“Community”** on navy + **“Support.”** on orange, then **“Built for Real”** plain + **“Life.”** on blue).
+Tan paper hero: compass logo + two-line title with colored highlight bars. Full field
+reference in **`STORYBLOK_PAGE_HERO_BLOCK.md`**. Configure `lines` → two `hero_line`s with
+these `hero_segment`s:
 
-| Field                  | Type                     | Notes |
-| ---------------------- | ------------------------ | ----- |
-| `compass_image`        | Asset (optional)         | Defaults to `/img/logo compass.png` |
-| `line1_prefix`         | Text (optional)          | Default: `Community` (sits on navy bar) |
-| `line1_highlight`      | Text (optional)          | Default: `Support.` (sits on orange bar) |
-| `line2_prefix`         | Text (optional)          | Default: `Built for Real` (no bar) |
-| `line2_highlight`      | Text (optional)          | Default: `Life.` (sits on blue bar) |
-| `line1_prefix_color`   | Single-option (optional) | `navy` (default) · `green` · `blue` · `orange` |
-| `line1_highlight_color`| Single-option (optional) | `orange` (default) · `navy` · `green` · `blue` |
-| `line2_highlight_color`| Single-option (optional) | `blue` (default) · `navy` · `green` · `orange` |
+| Line | `text`           | `bar_color` |
+| ---- | ---------------- | ----------- |
+| 1    | `Community`      | `navy`      |
+| 1    | ` `              | `none`      |
+| 1    | `Support.`       | `orange`    |
+| 2    | `Built for Real `| `none`      |
+| 2    | `Life.`          | `blue`      |
 
 ---
 
-### 2. `community_intro`
+### 2. `intro_section` (generic — replaces the old `community_intro`)
 
-Intro paragraph (centered white text) → green **Become a PKCC Client** button → wide intro photo (placeholder until you add an asset).
+Centered intro paragraph → green **Become a PKCC Client** button → wide intro photo. Full
+field reference in **`STORYBLOK_INTRO_SECTION_BLOCK.md`**. Configure:
 
-| Field          | Type             | Notes |
-| -------------- | ---------------- | ----- |
-| `body`         | Textarea         | Centered, max ~864px. Defaults to the PKCC welcome paragraph. Line breaks preserved. |
-| `button_label` | Text (optional)  | Default: `Become a PKCC Client` |
-| `button_link`  | Link (optional)  | Default: `/contact` |
-| `image`        | Asset (optional) | Wide ~967×533 crop. Shows a placeholder box if empty. |
+| Field          | Value                  |
+| -------------- | ---------------------- |
+| `button_color` | `green`                |
+| `button_label` | `Become a PKCC Client` |
+| `image_ratio`  | `967/533`              |
+| `body`         | PKCC welcome copy      |
 
-**Default `body`:**
+**Suggested `body`:**
 > The Project Kompass Community Center (PKCC) is a welcoming, inclusive space designed to support individuals and families during moments of need, transition, and growth. Serving men, women, children, young adults, and older adults, the PKCC provides access to food, basic necessities, life-skills education, and partner-led services—all in a respectful, judgment-free environment.
 
 ---
@@ -83,18 +83,22 @@ Nested rows use the generic **`scroll_card`** block. Full field reference is in
 
 ---
 
-### 4. `community_guidelines`
+### 4. `list_section` (generic — replaces the old `community_guidelines`)
 
-“PKCC GUIDELINES” heading (orange, uppercase) + a two-column layout: intro paragraphs and a bulleted guidelines list on the left, a portrait photo on the right. Dotted connector above.
+“PKCC GUIDELINES” heading (orange, uppercase) + a two-column layout: an intro paragraph and
+a bulleted guidelines list on the left, a portrait photo on the right. Full field reference
+in **`STORYBLOK_LIST_SECTION_BLOCK.md`**. Configure:
 
-| Field      | Type             | Notes |
-| ---------- | ---------------- | ----- |
-| `headline` | Text (optional)  | Default: `PKCC Guidelines` |
-| `body`     | Textarea (optional) | Intro paragraph(s). Defaults to the two PKCC paragraphs. Line breaks preserved. |
-| `bullets`  | Textarea (optional) | **One bullet per line.** Defaults to the 7 guidelines below. |
-| `image`    | Asset (optional) | Portrait ~508×678 crop. Placeholder box if empty. |
+| Field        | Value                    |
+| ------------ | ------------------------ |
+| `headline`   | `PKCC Guidelines`        |
+| `theme`      | `orange`                 |
+| `list_style` | `bullets`                |
+| `intro`      | Intro paragraph(s)       |
+| `bullets`    | One guideline per line   |
+| `image`      | Portrait ~511×681 crop   |
 
-**Default `bullets` (one per line):**
+**Suggested `bullets` (one per line):**
 ```
 We are inclusive of all individuals, regardless of background or circumstance
 All client information and conversations are kept confidential
@@ -143,11 +147,15 @@ of `orange`/`green`/`blue`/`navy`, `default_open`). Full field reference is in
 
 ## Recommended order in `page.blocks`
 
-1. `community_hero`
-2. `community_intro` (intro text + “Become a PKCC Client” button + photo)
+1. `page_hero` (generic)
+2. `intro_section` (generic — intro text + “Become a PKCC Client” button + photo)
 3. `scroll_cards` (`card_style: services`, with 7× `scroll_card`) — pinned horizontal scroll
-4. `community_guidelines` (intro text + bullets + portrait photo)
+4. `list_section` (generic — `list_style: bullets`, intro + bullets + portrait photo)
 5. `faq` (`theme: orange`, `show_bottom_connector: true`, with `faq_item` rows)
+
+> **Migration note:** the old `community_hero`, `community_intro`, and `community_guidelines`
+> blocks are still mapped in code, so existing content keeps rendering until you re-author
+> with the generic blocks.
 
 ---
 

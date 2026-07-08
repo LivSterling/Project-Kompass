@@ -32,6 +32,12 @@ import FaqSection from "@/components/shared/FaqSection";
 import FaqItem from "@/components/shared/FaqItem";
 import PinnedCardSection from "@/components/shared/PinnedCardSection";
 import ScrollCard from "@/components/shared/ScrollCard";
+import PageHero from "@/components/shared/PageHero";
+import IntroSection from "@/components/shared/IntroSection";
+import ContentSection from "@/components/shared/ContentSection";
+import ListSection from "@/components/shared/ListSection";
+import ListItem from "@/components/shared/ListItem";
+import NewsletterSection from "@/components/shared/NewsletterSection";
 
 // Custom fetch function to disable Next.js caching
 const cachedFetch = (input: RequestInfo | URL, init?: RequestInit) => {
@@ -79,6 +85,14 @@ export const getStoryblokApi = storyblokInit({
         faq_item: FaqItem,
         scroll_cards: PinnedCardSection,
         scroll_card: ScrollCard,
+
+        // Generic, reusable blocks (preferred for all new pages)
+        page_hero: PageHero,
+        intro_section: IntroSection,
+        content_section: ContentSection,
+        list_section: ListSection,
+        list_item: ListItem,
+        newsletter_section: NewsletterSection,
     },
     apiOptions: {
         fetch: cachedFetch,

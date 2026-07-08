@@ -14,60 +14,53 @@ All of these block types are already mapped in code (`src/lib/storyblok.ts`) and
 
 ## Blocks to create
 
-### 1. `programs_hero`
+### 1. `page_hero` (generic — replaces the old `programs_hero`)
 
-Tan paper hero: compass logo + a two-line title where specific phrases sit on colored highlight bars (Figma: **Support** on green, **Meets People** on orange, **Where** on blue). Decorative dotted path + map "X" float on the right (desktop only).
+Tan paper hero: compass logo + a two-line title where specific phrases sit on colored
+highlight bars. Full field reference in **`STORYBLOK_PAGE_HERO_BLOCK.md`**. Configure
+`lines` → two `hero_line`s with these `hero_segment`s:
 
-| Field             | Type             | Notes |
-| ----------------- | ---------------- | ----- |
-| `compass_image`   | Asset (optional) | Defaults to `/img/logo compass.png` |
-| `title`           | Textarea (optional) | Default: `Support That Meets People` + newline + `Where They Are.` Use a real line break to split the two lines. |
-| `highlight_green` | Text (optional)  | Phrase to highlight green. Default: `Support` |
-| `highlight_orange`| Text (optional)  | Phrase to highlight orange. Default: `Meets` |
-| `highlight_blue`  | Text (optional)  | Phrase to highlight blue. Default: `Are` |
-
-> The highlight phrases must appear **verbatim** inside `title` to render a colored bar. Leave any highlight blank to skip that color.
-
----
-
-### 2. `programs_intro`
-
-Centered white intro paragraph → blue **Contact us** button → wide intro photo.
-
-| Field          | Type              | Notes |
-| -------------- | ----------------- | ----- |
-| `body`         | Textarea          | Centered, max ~864px. Line breaks preserved. Has a sensible default if left blank. |
-| `button_label` | Text (optional)   | Default: `Contact us` |
-| `button_link`  | Link (optional)   | Default: `/contact` |
-| `image`        | Asset (optional)  | Wide ~963×450 crop. Shows a placeholder box if empty. |
+| Line | `text`     | `bar_color` |
+| ---- | ---------- | ----------- |
+| 1    | `Support`  | `green`     |
+| 1    | ` That `   | `none`      |
+| 1    | `Meets`    | `orange`    |
+| 1    | ` People`  | `none`      |
+| 2    | `Where`    | `blue`      |
+| 2    | ` They Are.` | `none`    |
 
 ---
 
-### 3. `programs_list`
+### 2. `intro_section` (generic — replaces the old `programs_intro`)
 
-"OUR PROGRAMS" headline (green `#82A969`, uppercase, Black Han Sans) + the four expandable program cards. Includes the growing green dotted connector above.
+Centered intro paragraph → blue **Contact us** button → wide intro photo. Full field
+reference in **`STORYBLOK_INTRO_SECTION_BLOCK.md`**. Configure:
 
-| Field      | Type            | Allowed nested | Notes |
-| ---------- | --------------- | -------------- | ----- |
-| `headline` | Text (optional) | —              | Default: `Our Programs` |
-| `items`    | **Blocks**      | `program_item` only | Preferred field name. (`body` also accepted as a fallback name.) |
+| Field          | Value        |
+| -------------- | ------------ |
+| `button_color` | `blue`       |
+| `button_label` | `Contact us` |
+| `image_ratio`  | `963/450`    |
+| `body`         | Intro copy   |
 
 ---
 
-### 4. `program_item` (nested only — inside `programs_list.items`)
+### 3. `list_section` (generic — replaces `programs_list` + `program_item`)
 
-One expandable program card. **Collapsed** = brown-paper bar, title + a right-pointing circle arrow. **Open** = the arrow rotates to point **down**, a colored highlight bar (one of the four brand colors) appears behind the title, and the body text + a blue **Learn More** button are revealed. Clicking the row toggles it open/closed.
+"OUR PROGRAMS" headline (green, uppercase) + the expandable program cards. Full field
+reference in **`STORYBLOK_LIST_SECTION_BLOCK.md`**. Configure:
 
-| Field          | Type             | Notes |
-| -------------- | ---------------- | ----- |
-| `title`        | Text             | e.g. `Housing`, `PKCC`, `Project Farm`, `Jump Start` |
-| `body`         | Textarea         | Shown when open; max ~864px, line breaks preserved. |
-| `button_label` | Text (optional)  | Default: `Learn More` |
-| `button_link`  | Link (optional)  | Default: `/programs` |
-| `accent_color` | Single-option (optional) | Open-state bar color: `orange` · `green` · `blue` · `navy`. If left blank it **auto-cycles** orange → green → blue → navy by position. |
-| `default_open` | Boolean (optional) | Start expanded (Figma opens **Housing** by default). |
+| Field        | Value                  |
+| ------------ | ---------------------- |
+| `headline`   | `Our Programs`         |
+| `theme`      | `green`                |
+| `list_style` | `accordion`            |
+| `items`      | 4× `list_item` (below) |
 
-**Add 4 instances** to match the Figma layout:
+Each `list_item` (accordion) shows a brown-paper bar with a circle arrow; when open, a
+colored bar appears behind the title and the body + a blue CTA are revealed. Colors
+auto-cycle orange → green → blue → navy unless you set `accent_color`. **Add 4 instances**
+to match the Figma layout:
 
 | # | `title`       | `accent_color` (auto) | `default_open` | `body` |
 | - | ------------- | --------------------- | -------------- | ------ |
@@ -78,26 +71,31 @@ One expandable program card. **Collapsed** = brown-paper bar, title + a right-po
 
 ---
 
-### 5. `programs_newsletter`
+### 5. `newsletter_section` (generic — replaces the old `programs_newsletter`)
 
-"STAY CONNECTED" headline (green) + subtitle + an email signup (gray input + orange **Submit** button). Includes a green dotted connector above **and** a trailing connector into the footer.
+"STAY CONNECTED" headline (green) + subtitle + an email signup (gray input + orange
+**Submit** button), with a connector above **and** below. Full field reference in
+**`STORYBLOK_NEWSLETTER_SECTION_BLOCK.md`**. Configure:
 
-| Field          | Type            | Notes |
-| -------------- | --------------- | ----- |
-| `headline`     | Text (optional) | Default: `Stay Connected` |
-| `subtitle`     | Text (optional) | Default: `Join Our Mailing List for Updates and Stories of Transformation` |
-| `placeholder`  | Text (optional) | Input placeholder. Default: `Email Address` |
-| `button_label` | Text (optional) | Default: `Submit` |
-| `action_url`   | Text (optional) | If set, the form POSTs the `email` field to this URL (e.g. a Mailchimp/Brevo endpoint). If blank, it shows a local "Thanks for subscribing!" confirmation. |
+| Field          | Value    |
+| -------------- | -------- |
+| `theme`        | `green`  |
+| `button_color` | `orange` |
+| `headline`     | `Stay Connected` (default) |
+| `action_url`   | Your POST endpoint (optional) |
 
 ---
 
 ## Recommended order in `page.blocks`
 
-1. `programs_hero`
-2. `programs_intro` (intro text + Contact us button + photo)
-3. `programs_list` (with 4× `program_item`)
-4. `programs_newsletter`
+1. `page_hero` (generic)
+2. `intro_section` (generic — intro text + Contact us button + photo)
+3. `list_section` (generic — `list_style: accordion`, with 4× `list_item`)
+4. `newsletter_section` (generic)
+
+> **Migration note:** the old `programs_hero`, `programs_intro`, `programs_list`,
+> `program_item`, and `programs_newsletter` blocks are still mapped in code, so existing
+> content keeps rendering until you re-author with the generic blocks.
 
 ---
 

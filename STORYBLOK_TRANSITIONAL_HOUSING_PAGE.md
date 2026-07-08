@@ -12,67 +12,63 @@ All of these block types are already mapped in code (`src/lib/storyblok.ts`) and
 
 ## Blocks to create
 
-### 1. `housing_hero`
+### 1. `page_hero` (generic — replaces the old `housing_hero`)
 
-Tan paper hero: compass logo + two-line title with colored highlight bars (matches Figma: **“Transitional Housing.”** on green, **“Enduring Support.”** on blue).
+Tan paper hero: compass logo + two-line title with colored highlight bars. Full field
+reference in **`STORYBLOK_PAGE_HERO_BLOCK.md`**. Configure `lines` → two `hero_line`s, each
+with a single full-line `hero_segment`:
 
-| Field           | Type             | Notes |
-| --------------- | ---------------- | ----- |
-| `compass_image` | Asset (optional) | Defaults to `/img/logo compass.png` |
-| `title_line1`   | Text (optional)  | Default: `Transitional Housing.` |
-| `title_line2`   | Text (optional)  | Default: `Enduring Support.` |
-| `line1_color`   | Single-option (optional) | `green` (default) · `blue` · `navy` · `orange` |
-| `line2_color`   | Single-option (optional) | `blue` (default) · `green` · `navy` · `orange` |
-
----
-
-### 2. `housing_intro`
-
-Intro paragraph (centered white text) → green **Submit a Referral** button → wide intro photo.
-
-| Field          | Type              | Notes |
-| -------------- | ----------------- | ----- |
-| `body`         | Textarea          | Centered, max ~864px. Blank lines / line breaks preserved. |
-| `button_label` | Text (optional)   | Default: `Submit a Referral` |
-| `button_link`  | Link (optional)   | Default: `/contact` |
-| `image`        | Asset (optional)  | Wide ~967×533 crop. Shows a placeholder box if empty. |
+| Line | `text`                  | `bar_color` |
+| ---- | ----------------------- | ----------- |
+| 1    | `Transitional Housing.` | `green`     |
+| 2    | `Enduring Support.`     | `blue`      |
 
 ---
 
-### 3. `housing_eligibility`
+### 2. `intro_section` (generic — replaces the old `housing_intro`)
 
-“PROGRAM ELIGIBILITY” heading (navy `#345789`, uppercase) + centered body. Includes the growing dotted connector above.
+Centered intro paragraph → green **Submit a Referral** button → wide intro photo. Full
+field reference in **`STORYBLOK_INTRO_SECTION_BLOCK.md`**. Configure:
 
-| Field      | Type            | Notes |
-| ---------- | --------------- | ----- |
-| `headline` | Text (optional) | Default: `Program Eligibility` |
-| `body`     | Textarea        | Centered, max ~864px, line breaks preserved. |
-
----
-
-### 4. `housing_expectations`
-
-“EXPECTATIONS & GUIDELINES” heading + a numbered requirements list (left) and a portrait photo (right). Dotted connector above.
-
-| Field      | Type            | Allowed nested | Notes |
-| ---------- | --------------- | -------------- | ----- |
-| `headline` | Text (optional) | —              | Default: `Expectations & Guidelines` |
-| `items`    | **Blocks**      | `housing_requirement` only | Preferred field name. (`body` also accepted as a fallback name.) |
-| `image`    | Asset (optional)| —              | Portrait ~511×681 crop. Placeholder box if empty. |
+| Field          | Value               |
+| -------------- | ------------------- |
+| `button_color` | `green`             |
+| `button_label` | `Submit a Referral` |
+| `image_ratio`  | `967/533`           |
+| `body`         | Intro copy          |
 
 ---
 
-### 5. `housing_requirement` (nested only — inside `housing_expectations.items`)
+### 3. `content_section` (generic — replaces the old `housing_eligibility`)
 
-One numbered guideline. The number is added automatically (1, 2, 3 …) from its position, and its color **auto-cycles** orange → blue → green → navy unless you override it.
+“PROGRAM ELIGIBILITY” heading (navy, uppercase) + centered body. Full field reference in
+**`STORYBLOK_CONTENT_SECTION_BLOCK.md`**. Configure:
 
-| Field   | Type            | Notes |
-| ------- | --------------- | ----- |
-| `title` | Text            | e.g. `Commitment` |
-| `body`  | Textarea        | Description; max ~510px, line breaks preserved. |
-| `color` | Single-option (optional) | Override auto color: `orange` · `blue` · `green` · `navy` |
+| Field           | Value                |
+| --------------- | -------------------- |
+| `headline`      | `Program Eligibility`|
+| `theme`         | `navy`               |
+| `headline_case` | `uppercase`          |
+| `body_align`    | `center`             |
+| `body`          | Eligibility copy     |
 
-**Add 8 instances** to match the Figma layout:
+---
+
+### 4. `list_section` (generic — replaces `housing_expectations` + `housing_requirement`)
+
+“EXPECTATIONS & GUIDELINES” heading + a numbered requirements list (left) and a portrait
+photo (right). Full field reference in **`STORYBLOK_LIST_SECTION_BLOCK.md`**. Configure:
+
+| Field           | Value                       |
+| --------------- | --------------------------- |
+| `headline`      | `Expectations & Guidelines` |
+| `theme`         | `navy`                      |
+| `list_style`    | `numbered`                  |
+| `image`         | Portrait ~511×681 crop      |
+| `items`         | 8× `list_item` (below)      |
+
+Each `list_item` auto-numbers (1, 2, 3 …) and auto-colors orange → blue → green → navy
+unless you set `accent_color`. **Add 8 instances** to match the Figma layout:
 
 | # | `title`           | `body` |
 | - | ----------------- | ------ |
@@ -125,11 +121,15 @@ of `green`/`blue` for this page, `default_open`). Full field reference is in
 
 ## Recommended order in `page.blocks`
 
-1. `housing_hero`
-2. `housing_intro` (intro text + referral button + photo)
-3. `housing_eligibility`
-4. `housing_expectations` (with 8× `housing_requirement`)
+1. `page_hero` (generic)
+2. `intro_section` (generic — intro text + referral button + photo)
+3. `content_section` (generic — Program Eligibility)
+4. `list_section` (generic — `list_style: numbered`, with 8× `list_item`)
 5. `faq` (`theme: navy`, with `faq_item` rows)
+
+> **Migration note:** the old `housing_hero`, `housing_intro`, `housing_eligibility`,
+> `housing_expectations`, and `housing_requirement` blocks are still mapped in code, so
+> existing content keeps rendering until you re-author with the generic blocks.
 
 ---
 
