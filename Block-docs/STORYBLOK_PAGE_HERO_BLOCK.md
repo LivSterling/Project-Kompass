@@ -25,7 +25,16 @@ bars, plain + highlighted mixes, etc.).
 | `compass_image`   | Asset (optional)         | Defaults to `/img/logo compass.png` if empty.                               |
 | `eyebrow`         | Text (optional)          | Small line above the title (e.g. About's "Who are we?").                     |
 | `show_decorations`| Boolean (optional)       | Dotted path + map "X" on the right (desktop). Defaults to **on**.            |
+| `background_style`| Single-option (optional) | `paper` (default) · `photo`. See below.                                     |
+| `background_image`| Asset (optional)         | **`photo` style only.** Rendered at 20% opacity over navy.                   |
 | `lines`           | **Blocks**               | `hero_line` only. Each becomes one line of the title.                        |
+
+### `background_style`
+
+| Value   | Renders as                                                                                                                                                                                                                                                     |
+| ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `paper` | The tan **brown-paper** texture (default — every existing page hero uses this).                                                                                                                                                                                   |
+| `photo` | A dark navy (`#252B42`) background with `background_image` faded to 20% opacity on top — used by pages like **Our Supporters** whose hero isn't on paper. Plain (non-highlighted) title segments automatically switch to white text; colored highlight-bar segments are unaffected. |
 
 ---
 
@@ -82,6 +91,13 @@ Recreate the existing heroes with `page_hero` like this (each row of "segments" 
 
 - Line 1: `Support` (green) · ` That ` (none) · `Meets` (orange) · ` People` (none)
 - Line 2: `Where` (blue) · ` They ` (none) · `Are.` (none)
+
+### Our Supporters (new — uses `background_style: photo`)
+
+- `background_style`: `photo`
+- `background_image`: the faded supporters/group photo from the Figma frame
+- Line 1: `Empowering Our ` (blue)
+- Line 2: `Community ` (navy) · `Together` (green)
 
 ---
 

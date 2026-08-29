@@ -2,13 +2,24 @@
 
 import { useState } from "react";
 import { storyblokEditable, type SbBlokData } from "@storyblok/react";
+import { listItemTitle, type StoryblokRichtext } from "@/lib/listItemFields";
+
+export { listItemTitle } from "@/lib/listItemFields";
 
 const PAPER = "/img/figma/brown-paper.jpg";
 
 export type ListItemBlok = {
   _uid: string;
   component?: string;
-  title?: string;
+  /** Preferred field name for the row heading. */
+  title?: string | StoryblokRichtext;
+  /** API name used in some Storyblok schemas instead of `title`. */
+  text?: string | StoryblokRichtext;
+  /** Aliases some editors use when creating the blok in Storyblok. */
+  headline?: string | StoryblokRichtext;
+  heading?: string | StoryblokRichtext;
+  name?: string | StoryblokRichtext;
+  label?: string | StoryblokRichtext;
   body?: string;
   /** Overrides the auto color cycle. */
   accent_color?: "orange" | "green" | "blue" | "navy";
@@ -64,6 +75,7 @@ export default function ListItem({
   variant?: "accordion" | "numbered";
 }) {
   const [open, setOpen] = useState<boolean>(blok.default_open === true);
+  const title = listItemTitle(blok);
 
   if (variant === "numbered") {
     const autoColor = NUMBERED_CYCLE[index % NUMBERED_CYCLE.length];
@@ -76,7 +88,7 @@ export default function ListItem({
           className={`font-heading text-[clamp(1.75rem,3.4vw,2.5rem)] leading-[1.2] tracking-[0.01em] ${TEXT_COLOR[color]}`}
         >
           <span>{index + 1}. </span>
-          {blok.title}
+          {title}
         </h3>
         <p className="mt-1 max-w-[510px] text-[20px] font-normal leading-[30px] tracking-[0.01em] whitespace-pre-wrap text-white">
           {blok.body}
@@ -111,7 +123,7 @@ export default function ListItem({
             />
           )}
           <span className="font-heading relative z-10 text-[clamp(1.75rem,4vw,3rem)] leading-[1.1] tracking-[0.01em] text-black">
-            {blok.title}
+            {title}
           </span>
         </span>
         <CircleArrow open={open} />

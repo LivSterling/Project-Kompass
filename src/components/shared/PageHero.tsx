@@ -1,29 +1,10 @@
 import { storyblokEditable, type SbBlokData } from "@storyblok/react/rsc";
-import { Fragment } from "react";
 import { FIGMA_DOTTED_LINE, FIGMA_MAP_X } from "@/lib/figmaAssets";
+import { HeroTitleLines, type HeroLineBlok, type HeroSegmentBlok } from "@/components/shared/HeroTitleLines";
 
-const BROWN_PAPER = "/img/figma/brown-paper.jpg";
+export type { HeroLineBlok, HeroSegmentBlok };
 
-const BAR_BG: Record<string, string> = {
-  green: "bg-green",
-  blue: "bg-blue",
-  navy: "bg-navy",
-  orange: "bg-orange",
-};
-
-export type HeroSegmentBlok = {
-  _uid?: string;
-  component?: string;
-  text?: string;
-  /** `none` = plain text on the paper; otherwise a colored highlight bar. */
-  bar_color?: "none" | "green" | "blue" | "navy" | "orange";
-};
-
-export type HeroLineBlok = {
-  _uid?: string;
-  component?: string;
-  segments?: HeroSegmentBlok[];
-};
+const BROWN_PAPER = "/img/figma/brown-paper-hero.png";
 
 interface PageHeroProps {
   blok: {
@@ -32,48 +13,47 @@ interface PageHeroProps {
     eyebrow?: string;
     /** Toggle the decorative dotted path + map "X" on the right (desktop). */
     show_decorations?: boolean;
+    /**
+     * `paper` (default): tan brown-paper texture, like every other page hero.
+     * `photo`: dark navy background with a faint background photo — used by pages like
+     * "Our Supporters" whose hero doesn't sit on paper.
+     */
+    background_style?: "paper" | "photo";
+    /** Only used when `background_style` is `photo`. Rendered at 20% opacity over navy. */
+    background_image?: { filename: string; alt?: string };
     lines?: HeroLineBlok[];
     _uid: string;
   };
-}
-
-function Segment({ seg }: { seg: HeroSegmentBlok }) {
-  const text = seg.text ?? "";
-  const color = seg.bar_color && seg.bar_color !== "none" ? seg.bar_color : null;
-
-  if (!color) {
-    return (
-      <span {...storyblokEditable(seg as SbBlokData)} className="relative z-10">
-        {text}
-      </span>
-    );
-  }
-
-  return (
-    <span
-      {...storyblokEditable(seg as SbBlokData)}
-      className={`relative z-10 box-decoration-clone ${BAR_BG[color]} px-2 py-1 text-black`}
-    >
-      {text}
-    </span>
-  );
 }
 
 export default function PageHero({ blok }: PageHeroProps) {
   const compassSrc = blok.compass_image?.filename || "/img/logo compass.png";
   const showDecorations = blok.show_decorations !== false;
   const lines = blok.lines ?? [];
+  const isPhoto = blok.background_style === "photo";
+  const plainTextClassName = isPhoto ? "text-white" : "text-black";
 
   return (
     <section
       {...storyblokEditable(blok as SbBlokData)}
-      className="relative w-full overflow-x-clip pt-28 pb-12 md:pt-32 md:pb-16"
+      className={`relative w-full overflow-x-clip pt-28 pb-12 md:pt-32 md:pb-36 ${isPhoto ? "bg-navy-dark" : ""}`}
     >
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${BROWN_PAPER})` }}
-        aria-hidden
-      />
+      {isPhoto ? (
+        blok.background_image?.filename ? (
+          <img
+            src={blok.background_image.filename}
+            alt={blok.background_image.alt || ""}
+            className="absolute inset-0 h-full w-full object-cover opacity-20"
+            aria-hidden
+          />
+        ) : null
+      ) : (
+        <div
+          className="absolute inset-0 bg-cover bg-bottom"
+          style={{ backgroundImage: `url(${BROWN_PAPER})` }}
+          aria-hidden
+        />
+      )}
 
       <div className="section-shell relative z-10 px-4 md:px-6">
         <div className="flex max-w-[940px] flex-col items-center gap-8 md:items-start md:gap-10">
@@ -87,20 +67,17 @@ export default function PageHero({ blok }: PageHeroProps) {
 
           <div className="relative w-full">
             {blok.eyebrow ? (
-              <p className="font-heading mb-8 text-center text-[clamp(2.25rem,5.2vw,3.62rem)] leading-[1.12] tracking-[0.01em] text-black md:mb-10 md:text-left">
+              <p
+                className={`font-heading mb-8 text-center text-[clamp(2.25rem,5.2vw,3.62rem)] leading-[1.12] tracking-[0.01em] md:mb-10 md:text-left ${plainTextClassName}`}
+              >
                 {blok.eyebrow}
               </p>
             ) : null}
 
-            <h1 className="font-heading text-center text-[clamp(2.25rem,5.2vw,3.62rem)] leading-[1.4] tracking-[0.01em] text-black md:text-left">
-              {lines.map((line, i) => (
-                <Fragment key={line._uid ?? i}>
-                  {i > 0 && <br />}
-                  {(line.segments ?? []).map((seg, j) => (
-                    <Segment key={seg._uid ?? j} seg={seg} />
-                  ))}
-                </Fragment>
-              ))}
+            <h1
+              className={`font-heading text-center text-[clamp(2.25rem,5.2vw,3.62rem)] leading-[1.4] tracking-[0.01em] md:text-left ${plainTextClassName}`}
+            >
+              <HeroTitleLines lines={lines} plainTextClassName={plainTextClassName} />
             </h1>
           </div>
         </div>

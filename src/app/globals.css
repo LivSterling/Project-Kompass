@@ -61,3 +61,56 @@ h6,
     width: min(1200px, calc(100% - 2rem));
     margin-inline: auto;
 }
+
+/* Conveyor-belt logo marquee (used by the `partner_logos` block). Content is duplicated
+   exactly twice by the component, so translating by -50% loops seamlessly. */
+@keyframes marquee-left {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes marquee-right {
+    from {
+        transform: translateX(-50%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+.marquee-row {
+    overflow: hidden;
+}
+
+.marquee-track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+}
+
+.marquee-track--left {
+    animation-name: marquee-left;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.marquee-track--right {
+    animation-name: marquee-right;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.marquee-row:hover .marquee-track {
+    animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+        animation: none !important;
+        transform: none !important;
+    }
+}

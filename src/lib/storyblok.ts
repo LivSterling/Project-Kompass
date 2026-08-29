@@ -38,6 +38,13 @@ import ContentSection from "@/components/shared/ContentSection";
 import ListSection from "@/components/shared/ListSection";
 import ListItem from "@/components/shared/ListItem";
 import NewsletterSection from "@/components/shared/NewsletterSection";
+import ImpactStatsSection from "@/components/shared/ImpactStatsSection";
+import ImpactStatItem from "@/components/shared/ImpactStatItem";
+import DonateBanner from "@/components/shared/DonateBanner";
+import CounterSection from "@/components/shared/CounterSection";
+import CounterItem from "@/components/shared/CounterItem";
+import PartnerLogosSection from "@/components/shared/PartnerLogosSection";
+import MapSection from "@/components/shared/MapSection";
 
 // Custom fetch function to disable Next.js caching
 const cachedFetch = (input: RequestInfo | URL, init?: RequestInit) => {
@@ -93,6 +100,13 @@ export const getStoryblokApi = storyblokInit({
         list_section: ListSection,
         list_item: ListItem,
         newsletter_section: NewsletterSection,
+        impact_stats: ImpactStatsSection,
+        impact_stat: ImpactStatItem,
+        donate_banner: DonateBanner,
+        counter_section: CounterSection,
+        counter_item: CounterItem,
+        partner_logos: PartnerLogosSection,
+        map_section: MapSection,
     },
     apiOptions: {
         fetch: cachedFetch,

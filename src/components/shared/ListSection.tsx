@@ -1,6 +1,7 @@
 import { storyblokEditable, type SbBlokData } from "@storyblok/react/rsc";
 import GrowingDottedConnector from "@/components/about/GrowingDottedConnector";
 import ListItem, { type ListItemBlok } from "@/components/shared/ListItem";
+import { listItemTitle } from "@/lib/listItemFields";
 
 type Theme = "orange" | "navy" | "green" | "blue";
 type ListStyle = "accordion" | "numbered" | "bullets";
@@ -45,7 +46,7 @@ export default function ListSection({ blok }: ListSectionProps) {
 
   const bulletLines = blok.bullets
     ? blok.bullets.split("\n").map((l) => l.trim()).filter(Boolean)
-    : items.map((it) => it.title ?? "").filter(Boolean);
+    : items.map((it) => listItemTitle(it)).filter(Boolean);
 
   const listEl =
     listStyle === "accordion" ? (

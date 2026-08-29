@@ -22,7 +22,14 @@ Mapped in code (`src/lib/storyblok.ts`) and rendered by
 | `body`           | Textarea                 | Body copy; ~864px max width. Line breaks preserved.                       |
 | `body_align`     | Single-option (optional) | `center` (default) · `left`.                                              |
 | `image`          | Asset (optional)         | Optional image (864×521 frame).                                           |
-| `image_position` | Single-option (optional) | `above` (default when image set) · `below` · `none`.                      |
+| `image_position` | Single-option (optional) | `above` (default when image set) · `below` · `right` (two-column split) · `none`. |
+| `button_label`   | Text (optional)          | Optional CTA under the body copy. Button only renders when set.           |
+| `button_link`    | Link (optional)          | Where the button points. Defaults to `#` if empty.                        |
+| `button_color`   | Single-option (optional) | `green` (default) · `blue` · `orange` · `navy`.                           |
+
+> **Button placement:** in the stacked layout (`image_position` = `above`/`below`/`none`) the
+> button is centered below the body copy, like `intro_section`. In the split layout
+> (`image_position: right`) it sits left-aligned under the body text, inside the text column.
 
 ---
 
