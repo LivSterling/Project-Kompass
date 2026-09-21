@@ -1,6 +1,6 @@
 # Storyblok: Transitional Housing page blocks
 
-This page lives at the Next.js route `/transitional-housing` and loads the Storyblok story **`pages/transitional-housing`**. Create that story (Content type **`page`**) and add the blocks below to its **`blocks`** field.
+This page lives at the Next.js route `/programs/transitional-housing` and loads the Storyblok story **`pages/transitional-housing`**. Create that story (Content type **`page`**) and add the blocks below to its **`blocks`** field.
 
 All of these block types are already mapped in code (`src/lib/storyblok.ts`) and rendered by components in `src/components/housing/`. Navigation, the footer, and the global page background come from the Next.js layout — you do **not** need blocks for them.
 
@@ -147,5 +147,5 @@ of `green`/`blue` for this page, `default_open`). Full field reference is in
 
 - Component map: `src/lib/storyblok.ts`
 - UI components: `src/components/housing/*`
-- Route: `src/app/transitional-housing/page.tsx`
+- Route: `src/app/programs/transitional-housing/page.tsx`
 - Scroll animation: GSAP `ScrollTrigger` in `src/components/about/GrowingDottedConnector.tsx` (now supports a `navy` variant)
