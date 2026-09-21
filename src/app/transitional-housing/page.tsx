@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default async function TransitionalHousingPage() {
-  const story = await getStory("pages/transitional-housing");
+  const story = await getStory("programs/transitional-housing");
 
   if (!story) {
     return (
