@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getStoryblokApi } from "@/lib/storyblok";
+import { getStory } from "@/lib/storyblok";
 import { StoryblokStory } from "@storyblok/react/rsc";
 
 export const metadata: Metadata = {
@@ -8,20 +8,8 @@ export const metadata: Metadata = {
     "The Project Kompass Community Center (PKCC) is a welcoming, inclusive space offering food, basic necessities, life-skills education, and partner-led services.",
 };
 
-async function fetchCommunityCenterPage() {
-  try {
-    const storyblokApi = getStoryblokApi();
-    const { data } = await storyblokApi.get("cdn/stories/pages/community-center", {
-      version: process.env.NODE_ENV === "development" ? "draft" : "published",
-    });
-    return data.story;
-  } catch {
-    return null;
-  }
-}
-
 export default async function CommunityCenterPage() {
-  const story = await fetchCommunityCenterPage();
+  const story = await getStory("pages/community-center");
 
   if (!story) {
     return (

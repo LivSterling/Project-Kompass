@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getStoryblokApi } from "@/lib/storyblok";
+import { getStory } from "@/lib/storyblok";
 import { StoryblokStory } from "@storyblok/react/rsc";
 
 export const metadata: Metadata = {
@@ -8,20 +8,8 @@ export const metadata: Metadata = {
     "Safe, stable transitional housing for young women and new moms during critical moments of transition.",
 };
 
-async function fetchTransitionalHousingPage() {
-  try {
-    const storyblokApi = getStoryblokApi();
-    const { data } = await storyblokApi.get("cdn/stories/pages/transitional-housing", {
-      version: process.env.NODE_ENV === "development" ? "draft" : "published",
-    });
-    return data.story;
-  } catch {
-    return null;
-  }
-}
-
 export default async function TransitionalHousingPage() {
-  const story = await fetchTransitionalHousingPage();
+  const story = await getStory("pages/transitional-housing");
 
   if (!story) {
     return (

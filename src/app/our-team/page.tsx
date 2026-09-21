@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getStoryblokApi } from "@/lib/storyblok";
+import { getStory } from "@/lib/storyblok";
 import { StoryblokStory } from "@storyblok/react/rsc";
 
 export const metadata: Metadata = {
@@ -7,20 +7,8 @@ export const metadata: Metadata = {
   description: "Meet the Project Kompass staff and board of directors.",
 };
 
-async function fetchOurTeamPage() {
-  try {
-    const storyblokApi = getStoryblokApi();
-    const { data } = await storyblokApi.get("cdn/stories/pages/our-team", {
-      version: process.env.NODE_ENV === "development" ? "draft" : "published",
-    });
-    return data.story;
-  } catch {
-    return null;
-  }
-}
-
 export default async function OurTeamPage() {
-  const story = await fetchOurTeamPage();
+  const story = await getStory("pages/our-team");
 
   if (!story) {
     return (

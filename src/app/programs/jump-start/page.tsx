@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getStoryblokApi } from "@/lib/storyblok";
+import { getStory } from "@/lib/storyblok";
 import { StoryblokStory } from "@storyblok/react/rsc";
 
 export const metadata: Metadata = {
@@ -8,20 +8,8 @@ export const metadata: Metadata = {
     "The Jump Start Scholarship empowers brighter futures through vocational and higher education — funding for students pursuing training, certificate, or college programs.",
 };
 
-async function fetchJumpStartPage() {
-  try {
-    const storyblokApi = getStoryblokApi();
-    const { data } = await storyblokApi.get("cdn/stories/pages/jump-start", {
-      version: process.env.NODE_ENV === "development" ? "draft" : "published",
-    });
-    return data.story;
-  } catch {
-    return null;
-  }
-}
-
 export default async function JumpStartPage() {
-  const story = await fetchJumpStartPage();
+  const story = await getStory("pages/jump-start");
 
   if (!story) {
     return (

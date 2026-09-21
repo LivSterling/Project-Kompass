@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getStoryblokApi } from "@/lib/storyblok";
+import { getStory } from "@/lib/storyblok";
 import { StoryblokStory } from "@storyblok/react/rsc";
 
 export const metadata: Metadata = {
@@ -8,20 +8,8 @@ export const metadata: Metadata = {
     "Project Farm is a hands-on, nature-based program in Derry, NH — connecting people with animals, open space, and community through Hidden Pond Farm & Stables.",
 };
 
-async function fetchProjectFarmPage() {
-  try {
-    const storyblokApi = getStoryblokApi();
-    const { data } = await storyblokApi.get("cdn/stories/pages/project-farm", {
-      version: process.env.NODE_ENV === "development" ? "draft" : "published",
-    });
-    return data.story;
-  } catch {
-    return null;
-  }
-}
-
 export default async function ProjectFarmPage() {
-  const story = await fetchProjectFarmPage();
+  const story = await getStory("pages/project-farm");
 
   if (!story) {
     return (

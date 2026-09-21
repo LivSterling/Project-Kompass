@@ -46,18 +46,27 @@ import CounterItem from "@/components/shared/CounterItem";
 import PartnerLogosSection from "@/components/shared/PartnerLogosSection";
 import MapSection from "@/components/shared/MapSection";
 
-// Custom fetch function to disable Next.js caching
+// True for local dev and Vercel Preview deployments, false only on Vercel Production.
+// (NODE_ENV is always "production" for both Preview and Production builds on Vercel,
+// so it can't be used to distinguish them - VERCEL_ENV can.)
+export const isPreviewEnvironment = () => process.env.VERCEL_ENV !== "production";
+
+// Custom fetch function: preview/dev always gets fresh content, production is cached
+// and relies on the /api/revalidate webhook (triggered by Storyblok on publish) to
+// bust the cache when content changes.
 const cachedFetch = (input: RequestInfo | URL, init?: RequestInit) => {
     return fetch(input, {
         ...init,
-        cache: process.env.NODE_ENV === "development" ? "no-store" : "force-cache",
+        cache: isPreviewEnvironment() ? "no-store" : "force-cache",
     });
 };
 
 export const getStoryblokApi = storyblokInit({
     accessToken: process.env.NEXT_PUBLIC_STORYBLOK_TOKEN,
     use: [apiPlugin],
-    bridge: process.env.NODE_ENV === "development",
+    // Safe to always enable: the bridge only activates client-side when it detects
+    // it's running inside Storyblok's Visual Editor iframe.
+    bridge: true,
     components: {
         page: Page,
         hero: Hero,
@@ -112,3 +121,19 @@ export const getStoryblokApi = storyblokInit({
         fetch: cachedFetch,
     }
 });
+
+// Shared helper for fetching a Storyblok story by slug. Fetches draft content in
+// preview/dev, published content in production. Returns null on error/missing story
+// so pages can fall back to their own placeholder UI.
+export async function getStory<T = unknown>(slug: string): Promise<T | null> {
+    try {
+        const storyblokApi = getStoryblokApi();
+        const { data } = await storyblokApi.get(`cdn/stories/${slug}`, {
+            version: isPreviewEnvironment() ? "draft" : "published",
+        });
+        return data.story;
+    } catch (error) {
+        console.error(`Failed to fetch Storyblok story "${slug}":`, error);
+        return null;
+    }
+}
