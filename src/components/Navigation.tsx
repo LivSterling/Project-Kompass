@@ -14,11 +14,11 @@ export default function Navigation() {
   }, []);
 
   return (
-    <header
-      className={`fixed top-0 right-0 left-0 z-50 transition-colors duration-700 ease-in-out ${
-        scrolled ? "nav-scrolled" : "bg-transparent"
-      }`}
-    >
+    <header className="fixed top-0 right-0 left-0 z-50">
+      <div
+        aria-hidden
+        className={`nav-backdrop ${scrolled ? "nav-backdrop--visible" : ""}`}
+      />
       <nav className="section-shell flex items-center justify-between gap-4 px-4 py-3 md:px-6 md:py-4">
         <Link href="/" className="flex shrink-0 items-center gap-2 text-white">
           <img src="/img/logo.png" alt="Project Kompass" className="h-10 w-auto md:h-12" />
